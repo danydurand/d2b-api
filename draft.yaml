@@ -1,0 +1,491 @@
+models:
+
+  PriceList:
+    name: string:50 unique
+    must_be_sync: boolean default:false index
+    sync_at: datetime nullable
+    created_by: foreign:users.id nullable index
+    updated_by: foreign:users.id nullable index
+
+  CustomerType:
+    code: string:6 unique
+    description: string:100 unique
+    price_list_id: id foreign:price_lists.id index
+    must_be_sync: boolean default:false index
+    sync_at: datetime nullable
+    created_by: foreign:users.id nullable index
+    updated_by: foreign:users.id nullable index
+
+controllers:
+
+  Api\V1\PriceList:
+    resource: api.index, api.store, api.show, api.update, api.destroy
+
+  Api\V1\CustomerType:
+    resource: api.index, api.store, api.show, api.update, api.destroy
+
+  # PaymentCondition:
+  #   code: string:6 unique
+  #   descripcion: string:100 unique
+  #   credit_days: tinyInteger
+  #   must_be_sync: boolean default:false
+  #   sync_at: datetime nullable
+  #   created_by: id foreign:users.id nullable
+  #   updated_by: id foreign:users.id nullable
+
+#  Concepto:
+#    nombre: string:100 unique
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  ImpMunicipal:
+#    descripcion: string:100 unique
+#    codigo_aracelario: string:10 nullable
+#    porcentaje_impuesto: decimal:5,2
+#    minimo_tributable: decimal:18,5
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  CategoriaArt:
+#    codigo: string:30 unique
+#    descripcion: string:100
+#    concepto_id: id foreign:concepto.id
+#    imp_municipal_id: id foreign:imp_municipal.id
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  Linea:
+#    descripcion: string:100 unique
+#    concepto_id: id foreign:concepto.id
+#    imp_municipal_id: id foreign:imp_municipal.id
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  Sublinea:
+#    descripcion: string:100 unique
+#    linea_id: id foreign:linea.id
+#    concepto_id: id foreign:concepto.id
+#    imp_municipal_id: id foreign:imp_municipal.id
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  Color:
+#    descripcion: string:100 unique
+#    sublinea_id: id foreign:sublinea.id
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  Procedencia:
+#    descripcion: string:100 unique
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  TipoArt:
+#    descripcion: string:100 unique
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  TipoImpuesto:
+#    descripcion: string:100 unique
+#    porcentaje: decimal:5,2
+#    fecha_vigencia: date
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  TpJuridica:
+#    nombre: string:100 unique
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  Proveedor:
+#    nro_rif: string:20 unique
+#    nombre: string:100 unique
+#    procentaje_retencion: decimal:18,5
+#    tp_juridica_id: id foreign:tp_juridica.id
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  UnidadVenta:
+#    descripcion: string:100 unique
+#    contable: json nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  Articulo:
+#    codigo: string:30 unique
+#    item: string:10
+#    fecha_registro: date
+#    descripcion: string:100 nullable
+#    pto_pedido: decimal:18,5 nullable
+#    stock_min: decimal:18,5 nullable
+#    stock_max: decimal:18,5 nullable
+#    categoria_art_id: id foreign.categoria_art.id
+#    linea_id: id foreign.linea.id
+#    sublinea_id: id foreign.sublinea.id
+#    color_id: id foreign.color.id
+#    procedencia_id: id foreign.procedencia.id
+#    tipo_art_id: id foreign.tipo_art.id
+#    tipo_impuesto_id: id foreign.tipo_impuesto.id
+#    proveedor_id: id foreign.proveedor.id
+#    is_maj_serial: boolean nullable
+#    ref: string:20 nullable
+#    modelo: string:20 nullable
+#    comentario: longText nullable
+#    ubicacion: string:60 nullable
+#    unidad_venta_id: id foreign.unidad_venta.id
+#    unidad_relac: decimal:18,5 nullable
+#    relac_aut: integer nullable
+#    stock_actual: decimal:18,5 nullable
+#    stock_comprometido: decimal:18,5 nullable
+#    stock_llegar: decimal:18,5 nullable
+#    stock_despachar: decimal:18,5 nullable
+#    sstock_actual: decimal:18,5 nullable
+#    sstock_comprometido: decimal:18,5 nullable
+#    sstock_llegar: decimal:18,5 nullable
+#    sstock_despachar: decimal:18,5 nullable
+#    sunidad_venta_id: id foreign.unidad_venta.id
+#    is_precio_om: boolean
+#    precio_vta1: decimal:18,5 nullable
+#    precio_vta2: decimal:18,5 nullable
+#    precio_vta3: decimal:18,5 nullable
+#    precio_vta4: decimal:18,5 nullable
+#    precio_vta5: decimal:18,5 nullable
+#    ulti_fecha_precio1: datetime nullable
+#    ulti_fecha_precio2: datetime nullable
+#    ulti_fecha_precio3: datetime nullable
+#    ulti_fecha_precio4: datetime nullable
+#    ulti_fecha_precio5: datetime nullable
+#    margen_max: decimal:18,5 nullable
+#    ulti_costo_unit: decimal:18,5 nullable
+#    ulti_fecha_costo: datetime nullable
+#    costo_prom_unit: decimal:18,5 nullable
+#    fecha_costo_prom: datetime nullable
+#    costo_repo: decimal:18,5 nullable
+#    fecha_costo_repo: datetime nullable
+#    costo_prov: decimal:18,5 nullable
+#    fecha_costo_prov: datetime nullable
+#    ulti_costo_om: decimal:18,5 nullable
+#    costo_prom_om: decimal:18,5 nullable
+#    fecha_costo_prom_om: datetime nullable
+#    tipo_costo: string:4 nullable
+#    punto_cliente: decimal:18,5 nullable
+#    punto_proveedor: decimal:18,5 nullable
+#    is_anulado: boolean nullable
+#    mto_ilc: decimal:18,5 nullable
+#    capacidad: decimal:18,5 nullable
+#    grado_al: decimal:18,5 nullable
+#    tipo_licor: string:1 nullable
+#    is_compuesto: boolean nullable default false
+#    picture: string:100 nullable
+#    campo1: string:60 nullable
+#    campo2: string:60 nullable
+#    campo3: string:60 nullable
+#    campo4: string:60 nullable
+#    campo5: string:60 nullable
+#    campo6: string:60 nullable
+#    campo7: string:60 nullable
+#    campo8: string:60 nullable
+#    revisado: string:1 nullable
+#    is_transferido: boolean nullable default false
+#    x_11: decimal:18,5 nullable
+#    x_12: decimal:18,5 nullable
+#    x_13: decimal:18,5 nullable
+#    is_lote: boolean nullable
+#    garantía: string:30 nullable
+#    peso: decimal:18,5 nullable
+#    pies: decimal:18,5 nullable
+#    margen1: decimal:18,5 nullable
+#    margen2: decimal:18,5 nullable
+#    margen3: decimal:18,5 nullable
+#    margen4: decimal:18,5 nullable
+#    margen5: decimal:18,5 nullable
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  Vendedor:
+#    nombre: string:100 unique
+#    porcentaje_comision: decimal:5,2
+#    porcentaje_cobranza: decimal:5,2
+#    login: string:8 unique
+#    password: string:255
+#    fecha_ulti_ingreso: date
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+
+#  Transporte:
+#    nombre: string:100 unique
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+
+#  Moneda:
+#    nombre: string:100 unique
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  CondicionPago:
+#    descripcion: string:100 unique
+#    dias_credito: tinyInteger
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  Sucursal:
+#    nombre: string:100 unique
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  TipoCliente:
+#    descripcion: string:60 unique
+#    lista_de_precio: tinyInteger
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  Zona:
+#    codigo: string:8 unique
+#    nombre: string:120
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+
+#  Segmento:
+#    nombre: string:100 unique
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  CuentaIngreso:
+#    descripcion: string:100 unique
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  Pais:
+#    nombre: string:100 unique
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  Cliente:
+#    nro_rif: string:50 nullable
+#    razon_social: string:100
+#    porcentaje_retencion: decimal:5,2 nullable
+#    tp_juridica_id: id foreign:tp_juridica
+#    is_juridico: boolean nullable
+#    tipo_cliente_id: id foreign:tipo_cliente
+#    zona_id: id foreign:zona
+#    segmento_id: id foreign:segmento
+#    vendedor_id: id foreign:vendedor
+#    cuenta_ingreso_id: id foreign:cuenta_ingreso
+#    direccion_fiscal: string:250 nullable
+#    direccion_despacho:	string:250 nullable
+#    telefonos: string:60 nullable
+#    email: string:60 nullable
+#    email2: string:60 nullable
+#    inactivo: boolean nullable
+#    comentario: string:250 nullable
+#    responsable: srtring:60 nullable
+#    fecha_registro: date nullable
+#    nif: string:18 nullable
+#    is_contribuyente: boolean nullable
+#    pais_id: id foreign:pais
+#    ciudad: string:50 nullable
+#    cod_zip: string:10 nullable
+#    dscto_global: decimal:18,5 nullable
+#    hora_caja: string:60 nullable
+#    frecuencia_visita: string:60 nullable
+#    is_lun: boolean nullable
+#    is_mar: boolean nullable
+#    is_mie: boolean nullable
+#    is_jue: boolean nullable
+#    is_vie: boolean nullable
+#    monto_credito: decimal:18,5 nullable
+#    condicion_pago_id: id foreign:condicion_pago
+#    matriz_id: id foreign:cliente nullable
+#    login: string:10 nullable
+#    password: string:50 nullable
+#    login_api: string:10 nullable
+#    password_api: string:50 nullable
+#    token_api: string:50 nullable
+#    web_site: string:100 nullable
+#    sales_tax: string:8 nullable
+#    campo1: string:60 nullable
+#    campo2: string:60 nullable
+#    campo3: string:60 nullable
+#    campo4: string:60 nullable
+#    campo5: string:60 nullable
+#    campo6: string:60 nullable
+#    campo7: string:60 nullable
+#    campo8: string:60 nullable
+#    is_sync: boolean nullable
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+
+#  Pedido:
+#    cliente_id: id foreign
+#    vendedor_id: id foreign
+#    transporte_id: id foreign nullable
+#    estatus: string:1 nullable
+#    descripcion: string:60 nullable
+#    comentario: string:250 nullable
+#    saldo: decimal:18,5 nullable
+#    tot_bruto: decimal:18,5 nullable
+#    tot_neto: decimal:18,5 nullable
+#    desc_global: decimal:18,5 nullable
+#    tot_recargo: decimal:18,5 nullable
+#    tot_flete: decimal:18,5 nullable
+#    iva: decimal:18,5 nullable
+#    tasa: decimal:18,5 nullable
+#    moneda_id: id foreign
+#    fecha_emision: date nullable
+#    condicion_pago_id: id foreign
+#    fecha_vencimiento: date nullable
+#    direccion_entrega: longtext nullable
+#    anulada: boolean nullable
+#    is_impreso: boolean nullable
+#    campo1: string:60 nullable
+#    campo2: string:60 nullable
+#    campo3: string:60 nullable
+#    campo4: string:60 nullable
+#    campo5: string:60 nullable
+#    campo6: string:60 nullable
+#    campo7: string:60 nullable
+#    campo8: string:60 nullable
+#    is_revisado: string:1 nullable
+#    sucursal_id: id foreing
+#    monto_ilc: decimal:18,5 nullable
+#    otros1: decimal:18,5 nullable
+#    otros2: decimal:18,5 nullable
+#    otros3: decimal:18,5 nullable
+#    auxiliar1: decimal:18,5 nullable
+#    auxiliar2: string:30 nullable
+#    is_sync: boolean nullable
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  Almacen:
+#    nombre: string:100 unique
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  Banco:
+#    nombre: string:100 unique
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  Tabulador:
+#    concepto_id: id foreign
+#    tp_juridica_id: id foreign
+#    porcentaje_base: decimal:5,2
+#    porcentaje_retencion: decimal:5,2
+#    sustraendo: decimal:18,5
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  RenglonPedido:
+#    pedido_id: id foreign
+#    articulo_id: id foreign
+#    almacen_id: id foreign
+#    cantidad_art: decimal:18,5 nullable
+#    scantidad_art: decimal:18,5 nullable
+#    pendiente:  decimal:18,5 nullable
+#    unidad_venta_id: id foreign
+#    precio_venta: decimal:18,5 nullable
+#    precio_venta2: decimal:18,5 nullable
+#    porc_dscto: string:15 nullable
+#    tipo_impuesto_id: id foreign
+#    monto_neto: decimal:12,2 nullable
+#    costo_prom: decimal:18,5 nullable
+#    ulti_cost_prom: decimal:18,5 nullable
+#    ulti_costo_om: decimal:18,5 nullable
+#    costo_prom_om: decimal:18,5 nullable
+#    cant_dev: decimal:18,5 nullable
+#    monto_dev: dec nullable
+#    descripcion_art: string:120 nullable
+#    comentario: string:250 nullable
+#    total_uni: decimal:18,5 nullable
+#    monto_ilc: decimal:18,5 nullable
+#    nro_lote: string:20 nullable
+#    fecha_lote: date nullable
+#    tipo_doc: string:1 nullable
+#    reng_doc: integer nullable
+#    num_doc: integer nullable
+#    auxiliar1: decimal:18,5 nullable
+#    auxiliar2: string:30 nullable
+#    is_sync: boolean nullable
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+
+#  FormaPago:
+#    nombre: string:100 unique
+#    is_activo: boolean
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  TipoDocumento:
+#    codigo: string:10 unique
+#    nombre: string:100 unique
+#    signo: boolean
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  DocumCp:
+#    tipo_documento_id: id foreign
+#    proveedor_id: id foreign
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  DocumCc:
+#    tipo_documento_id: id foreign
+#    cliente_id: id foreign
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  Beneficiario:
+#    nombre: string:100 unique
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+#  OrdenDePago:
+#    beneciario_id: id foreign
+#    descripcion: string:250
+#    fecha: date nullable
+#    monto: decimal:18,5 nullable
+#    is_pagada: boolean nullable
+#    forma_de_pago_id: id foreign
+#    contable: jsonb nullable
+#    created_by: id foreign:users.id nullable
+#    updated_by: id foreign:users.id nullable
+
+
+  # ItemOrdenDePago:
+  #   orden_de_pago_id: id foreign
+  #   concepto_id: id foreign
+  #   monto: decimal:18,5
+  #   contable: jsonb nullable
+  #   created_by: id foreign:users.id nullable
+  #   updated_by: id foreign:users.id nullable
