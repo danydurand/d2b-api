@@ -9,6 +9,7 @@ use App\Http\Requests\V1\PriceListUpdateRequest;
 use App\Http\Resources\V1\PriceListCollection;
 use App\Http\Resources\V1\PriceListResource;
 use App\Models\PriceList;
+use App\Models\CustomerType;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -42,6 +43,12 @@ class PriceListController extends Controller
 
     public function show(Request $request, PriceList $priceList): PriceListResource
     {
+        $includeCustomerTypes = $request->query('includeCustomerTypes');
+
+        if ($includeCustomerTypes) {
+            $priceList->loadMissing('customerTypes');
+        }
+
         return new PriceListResource($priceList);
     }
 
@@ -52,10 +59,14 @@ class PriceListController extends Controller
         return new PriceListResource($priceList);
     }
 
-    public function destroy(Request $request, PriceList $priceList): Response
+    public function destroy(Request $request, PriceList $priceList)
     {
-        $priceList->delete();
-
-        return response()->noContent();
+        $intCustType = CustomerType::where('price_list_id', $priceList->id)->get()->count();
+        if ($intCustType == 0) {
+            $priceList->delete();
+            return response()->noContent();
+        } else {
+            return response()->json(['errors' => 'There are ('. $intCustType. ') customer types assigned to this price list.'], 400);
+        }
     }
 }

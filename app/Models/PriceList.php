@@ -40,11 +40,17 @@ class PriceList extends Model
     public $appends = [
         'creator',
         'updator',
+        'customer_types_count'
     ];
 
     //------------
     // Accessors
     //------------
+
+    protected function getCustomerTypesCountAttribute()
+    {
+        return $this->customerTypes()->count();
+    }
 
     protected function getCreatorAttribute()
     {
@@ -55,6 +61,7 @@ class PriceList extends Model
     {
         return $this->updated_by ? User::find($this->updated_by)->name_id : null;
     }
+
 
 
 

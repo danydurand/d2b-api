@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class PriceListUpdateRequest extends FormRequest
 {
@@ -21,10 +22,34 @@ class PriceListUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:50', 'unique:price_lists,name'],
-            'must_be_sync' => ['required'],
+            'must_be_sync' => ['nullable', 'boolean'],
             'sync_at' => ['nullable'],
-            'created_by' => ['nullable'],
             'updated_by' => ['nullable'],
         ];
     }
+
+    protected function prepareForValidation()
+    {
+        if ($this->name) {
+            $this->merge([
+                'name' => Str::Upper($this->name),
+            ]);
+        }
+        if ($this->mustBeSync) {
+            $this->merge([
+                'must_be_sync' => $this->mustBeSync,
+            ]);
+        }
+        if ($this->syncAt) {
+            $this->merge([
+                'sync_at' => $this->syncAt,
+            ]);
+        }
+        if ($this->updatedBy) {
+            $this->merge([
+                'updated_by' => $this->updatedBy,
+            ]);
+        }
+    }
+
 }
