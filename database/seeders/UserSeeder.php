@@ -30,6 +30,14 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
+        User::factory()->create([
+            'name' => 'Seller 2',
+            'email' => 'seller2@gmail.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'remember_token' => Str::random(10),
+        ]);
+
         // User::factory()
         //     ->count(2)
         //     ->hasPriceLists(2)

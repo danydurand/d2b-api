@@ -1,28 +1,63 @@
 models:
 
-  PriceList:
-    name: string:50 unique
-    must_be_sync: boolean default:false index
-    sync_at: datetime nullable
-    created_by: foreign:users.id nullable index
-    updated_by: foreign:users.id nullable index
+ Seller:
+   name: string:100 unique
+   sales_commission: decimal:5,2
+   collect_commission: decimal:5,2
+   login: string:8 unique
+   password: string:255 nullable
+   last_login_at: datetime nullable
+   must_be_sync: boolean default:false index
+   sync_at: datetime nullable
+   created_by: foreign:users.id nullable index
+   updated_by: foreign:users.id nullable index
 
-  CustomerType:
-    code: string:6 unique
-    description: string:100 unique
-    price_list_id: id foreign:price_lists.id index
-    must_be_sync: boolean default:false index
-    sync_at: datetime nullable
-    created_by: foreign:users.id nullable index
-    updated_by: foreign:users.id nullable index
+ Customer:
+   code: string:6 unique
+   fiscal_number: string:30
+   business_name: string:100
+   customer_type_id: foreign:customer_types.id index
+   seller_id: foreign:sellers.id index
+   fiscal_address: string:250 nullable
+   dispatch_address:	string:250 nullable
+   phones: string:60 nullable
+   contact_name: string:60 nullable
+   must_be_sync: boolean default:false index
+   sync_at: datetime nullable
+   created_by: foreign:users.id nullable index
+   updated_by: foreign:users.id nullable index
 
 controllers:
 
-  Api\V1\PriceList:
+  Api\Seller:
     resource: api.index, api.store, api.show, api.update, api.destroy
 
-  Api\V1\CustomerType:
+  Api\Customer:
     resource: api.index, api.store, api.show, api.update, api.destroy
+
+#   PriceList:
+#     name: string:50 unique
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+#   CustomerType:
+#     code: string:6 unique
+#     description: string:100 unique
+#     price_list_id: id foreign:price_lists.id index
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+# controllers:
+
+#   Api\V1\PriceList:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
+
+#   Api\V1\CustomerType:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
 
   # PaymentCondition:
   #   code: string:6 unique

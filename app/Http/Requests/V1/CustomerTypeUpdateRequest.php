@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class CustomerTypeUpdateRequest extends FormRequest
 {
@@ -29,4 +30,39 @@ class CustomerTypeUpdateRequest extends FormRequest
             'updated_by' => ['nullable'],
         ];
     }
+
+    protected function prepareForValidation()
+    {
+        if ($this->code) {
+            $this->merge([
+                'code' => Str::Upper($this->code),
+            ]);
+        }
+        if ($this->description) {
+            $this->merge([
+                'description' => Str::Upper($this->description),
+            ]);
+        }
+        if ($this->listPriceId) {
+            $this->merge([
+                'list_price_id' => $this->listPriceId,
+            ]);
+        }
+        if ($this->mustBeSync) {
+            $this->merge([
+                'must_be_sync' => $this->mustBeSync,
+            ]);
+        }
+        if ($this->syncAt) {
+            $this->merge([
+                'sync_at' => $this->syncAt,
+            ]);
+        }
+        if ($this->updatedBy) {
+            $this->merge([
+                'updated_by' => $this->updatedBy,
+            ]);
+        }
+    }
+
 }

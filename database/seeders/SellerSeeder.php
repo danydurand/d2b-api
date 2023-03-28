@@ -2,23 +2,21 @@
 
 namespace Database\Seeders;
 
-use App\Models\CustomerType;
-use App\Models\PriceList;
-use App\Models\User;
+use App\Models\Seller;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CustomerTypeSeeder extends Seeder
+class SellerSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run()
     {
-
-        CustomerType::factory()
+        Seller::factory()
             ->count(5)
             ->create();
+
     }
 
 }

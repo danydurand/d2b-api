@@ -14,34 +14,10 @@ class PriceListSeeder extends Seeder
      */
     public function run()
     {
-        PriceList::factory()->create([
-            'name' => 'LIST NRO 1',
-            'must_be_sync' => false,
-            'sync_at' => null,
-            'created_by' => User::find(1),
-            'updated_by' => User::find(1),
-        ]);
-
-        PriceList::factory()->create([
-            'name' => 'LIST NRO TWO',
-            'must_be_sync' => false,
-            'sync_at' => null,
-            'created_by' => User::find(2),
-            'updated_by' => User::find(2),
-        ]);
-
-        PriceList::factory()->create([
-            'name' => 'LIST NRO 3',
-            'must_be_sync' => false,
-            'sync_at' => null,
-            'created_by' => User::find(1),
-            'updated_by' => User::find(1),
-        ]);
-
-        // PriceList::factory()
-        //     ->count(5)
-        //     ->hasCustomerTypes(2)
-        //     ->create();
+        PriceList::factory()
+            ->count(5)
+            // ->hasCustomerTypes(2)
+            ->create();
     }
 
 }
