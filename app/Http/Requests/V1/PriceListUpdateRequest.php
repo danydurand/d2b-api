@@ -20,12 +20,23 @@ class PriceListUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => ['required', 'string', 'max:50', 'unique:price_lists,name'],
-            'must_be_sync' => ['nullable', 'boolean'],
-            'sync_at' => ['nullable'],
-            'updated_by' => ['nullable'],
-        ];
+        $method = $this->method();
+
+        if ($method == 'PUT') {
+            return [
+                'name'         => ['required', 'string', 'max:50', 'unique:price_lists,name'],
+                'must_be_sync' => ['nullable', 'boolean'],
+                'sync_at'      => ['nullable', 'datetime'],
+                'updated_by'   => ['required', 'exists:users,id'],
+            ];
+        } else {
+            return [
+                'name'         => ['sometimes', 'required', 'string', 'max:50', 'unique:price_lists,name'],
+                'must_be_sync' => ['nullable', 'boolean'],
+                'sync_at'      => ['nullable', 'datetime'],
+                'updated_by'   => ['required', 'exists:users,id'],
+            ];
+        }
     }
 
     protected function prepareForValidation()

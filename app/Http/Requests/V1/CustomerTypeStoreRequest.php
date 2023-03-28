@@ -21,13 +21,13 @@ class CustomerTypeStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => ['required', 'string', 'max:6', 'unique:customer_types,code'],
-            'description' => ['required', 'string', 'max:100', 'unique:customer_types,description'],
+            'code'          => ['required', 'string', 'max:6', 'unique:customer_types,code'],
+            'description'   => ['required', 'string', 'max:100', 'unique:customer_types,description'],
             'price_list_id' => ['required', 'integer', 'exists:price_lists,id'],
-            'must_be_sync' => ['required'],
-            'sync_at' => ['nullable'],
-            'created_by' => ['nullable'],
-            'updated_by' => ['nullable'],
+            'must_be_sync'  => ['required'],
+            'sync_at'       => ['nullable'],
+            'created_by'    => ['required', 'exists:users,id'],
+            'updated_by'    => ['nullable'],
         ];
     }
 

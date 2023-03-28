@@ -21,21 +21,41 @@ class CustomerUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'code' => ['required', 'string', 'max:6', Rule::unique('customers')->ignore($this->id) ],
-            'fiscal_number' => ['required', 'string', 'max:30'],
-            'business_name' => ['required', 'string', 'max:100'],
-            'customer_type_id' => ['required', 'integer', 'exists:customer_types,id'],
-            'seller_id' => ['required', 'integer', 'exists:sellers,id'],
-            'fiscal_address' => ['nullable', 'string', 'max:250'],
-            'dispatch_address' => ['nullable', 'string', 'max:250'],
-            'phones' => ['nullable', 'string', 'max:60'],
-            'contact_name' => ['nullable', 'string', 'max:60'],
-            'must_be_sync' => ['required'],
-            'sync_at' => ['nullable'],
-            'created_by' => ['nullable'],
-            'updated_by' => ['nullable'],
-        ];
+        $method = $this->method();
+
+        if ($method == 'PUT') {
+            return [
+                'code'             => ['required', 'string', 'max:6', Rule::unique('customers')->ignore($this->id) ],
+                'fiscal_number'    => ['required', 'string', 'max:30'],
+                'business_name'    => ['required', 'string', 'max:100'],
+                'customer_type_id' => ['required', 'integer', 'exists:customer_types,id'],
+                'seller_id'        => ['required', 'integer', 'exists:sellers,id'],
+                'fiscal_address'   => ['required', 'string', 'max:250'],
+                'dispatch_address' => ['required', 'string', 'max:250'],
+                'phones'           => ['required', 'string', 'max:60'],
+                'contact_name'     => ['required', 'string', 'max:60'],
+                'must_be_sync'     => ['required'],
+                'sync_at'          => ['nullable'],
+                'created_by'       => ['nullable'],
+                'updated_by'       => ['required', 'exists:users,id'],
+            ];
+        } else {
+            return [
+                'code'             => ['sometimes', 'required', 'string', 'max:6', Rule::unique('customers')->ignore($this->id) ],
+                'fiscal_number'    => ['sometimes', 'required', 'string', 'max:30'],
+                'business_name'    => ['sometimes', 'required', 'string', 'max:100'],
+                'customer_type_id' => ['sometimes', 'required', 'integer', 'exists:customer_types,id'],
+                'seller_id'        => ['sometimes', 'required', 'integer', 'exists:sellers,id'],
+                'fiscal_address'   => ['sometimes', 'required', 'string', 'max:250'],
+                'dispatch_address' => ['sometimes', 'required', 'string', 'max:250'],
+                'phones'           => ['sometimes', 'required', 'string', 'max:60'],
+                'contact_name'     => ['sometimes', 'required', 'string', 'max:60'],
+                'must_be_sync'     => ['sometimes', 'required'],
+                'sync_at'          => ['nullable'],
+                'created_by'       => ['nullable'],
+                'updated_by'       => ['required', 'exists:users,id'],
+            ];
+        }
     }
 
     protected function prepareForValidation()
@@ -44,10 +64,10 @@ class CustomerUpdateRequest extends FormRequest
             $this->merge([ 'name' => Str::Upper($this->name), ]);
         }
         if (strlen($this->fiscalNumber)) {
-            $this->merge([ 'fiscal_number' => $this->fiscalNumber, ]);
+            $this->merge([ 'fiscal_number' => Str::upper($this->fiscalNumber), ]);
         }
         if (strlen($this->businessName)) {
-            $this->merge([ 'business_name' => $this->businessName, ]);
+            $this->merge([ 'business_name' => Str::upper($this->businessName), ]);
         }
         if (strlen($this->customerTypeId)) {
             $this->merge([ 'customer_type_id' => $this->customerTypeId, ]);

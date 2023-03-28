@@ -30,8 +30,8 @@ class SellerStoreRequest extends FormRequest
             'last_login_at' => ['nullable'],
             'must_be_sync' => ['required'],
             'sync_at' => ['nullable'],
-            'created_by' => ['required'],
-            'updated_by' => ['required'],
+            'created_by' => ['required', 'exists:users,id'],
+            'updated_by' => ['nullable'],
         ];
     }
 
@@ -63,7 +63,7 @@ class SellerStoreRequest extends FormRequest
         }
         if ($this->createdBy) {
             $this->merge([
-                'created_by' => 1,
+                'created_by' => $this->createdBy,
                 'updated_by' => $this->createdBy,
             ]);
         }

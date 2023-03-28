@@ -20,15 +20,29 @@ class CustomerTypeUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'code' => ['required', 'string', 'max:6', 'unique:customer_types,code'],
-            'description' => ['required', 'string', 'max:100', 'unique:customer_types,description'],
-            'price_list_id' => ['required', 'integer', 'exists:price_lists,id'],
-            'must_be_sync' => ['required'],
-            'sync_at' => ['nullable'],
-            'created_by' => ['nullable'],
-            'updated_by' => ['nullable'],
-        ];
+        $method = $this->method();
+
+        if ($method == 'PUT') {
+            return [
+                'code'          => ['required', 'string', 'max:6', 'unique:customer_types,code'],
+                'description'   => ['required', 'string', 'max:100', 'unique:customer_types,description'],
+                'price_list_id' => ['required', 'integer', 'exists:price_lists,id'],
+                'must_be_sync'  => ['required'],
+                'sync_at'       => ['nullable'],
+                'created_by'    => ['nullable'],
+                'updated_by'    => ['required', 'exists:users,id'],
+            ];
+        } else {
+            return [
+                'code'          => ['sometimes', 'required', 'string', 'max:6', 'unique:customer_types,code'],
+                'description'   => ['sometimes', 'required', 'string', 'max:100', 'unique:customer_types,description'],
+                'price_list_id' => ['sometimes', 'required', 'integer', 'exists:price_lists,id'],
+                'must_be_sync'  => ['sometimes', 'required'],
+                'sync_at'       => ['nullable'],
+                'created_by'    => ['nullable'],
+                'updated_by'    => ['required', 'exists:users,id'],
+            ];
+        }
     }
 
     protected function prepareForValidation()

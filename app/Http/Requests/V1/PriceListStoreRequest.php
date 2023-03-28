@@ -21,11 +21,11 @@ class PriceListStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:50', 'unique:price_lists,name'],
+            'name'         => ['required', 'string', 'max:50', 'unique:price_lists,name'],
             'must_be_sync' => ['required'],
-            'sync_at' => ['nullable'],
-            'created_by' => ['required', 'integer', 'exists:users,id'],
-            'updated_by' => ['nullable'],
+            'sync_at'      => ['nullable'],
+            'created_by'   => ['required', 'integer', 'exists:users,id'],
+            'updated_by'   => ['nullable'],
         ];
     }
 

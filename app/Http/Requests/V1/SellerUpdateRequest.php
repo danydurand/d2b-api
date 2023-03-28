@@ -22,18 +22,35 @@ class SellerUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => ['required', 'string', 'max:100', Rule::unique('sellers')->ignore($this->id)],
-            'sales_commission' => ['required', 'numeric', 'between:0,999.99'],
-            'collect_commission' => ['required', 'numeric', 'between:0,999.99'],
-            'login' => ['required', 'string', 'max:8', Rule::unique('sellers')->ignore($this->id)],
-            'password' => ['nullable', 'max:255'],
-            'last_login_at' => ['nullable'],
-            'must_be_sync' => ['required'],
-            'sync_at' => ['nullable'],
-            'created_by' => ['required'],
-            'updated_by' => ['required'],
-        ];
+        $method = $this->method();
+
+        if ($method == 'PUT') {
+            return [
+                'name'               => ['required', 'string', 'max:100', Rule::unique('sellers')->ignore($this->id)],
+                'sales_commission'   => ['required', 'numeric', 'between:0,999.99'],
+                'collect_commission' => ['required', 'numeric', 'between:0,999.99'],
+                'login'              => ['required', 'string', 'max:8', Rule::unique('sellers')->ignore($this->id)],
+                'password'           => ['nullable', 'max:255'],
+                'last_login_at'      => ['nullable'],
+                'must_be_sync'       => ['required'],
+                'sync_at'            => ['nullable'],
+                'created_by'         => ['nullable'],
+                'updated_by'         => ['required', 'exists:users,id'],
+            ];
+        } else {
+            return [
+                'name'               => ['sometimes', 'required', 'string', 'max:100', Rule::unique('sellers')->ignore($this->id)],
+                'sales_commission'   => ['sometimes', 'required', 'numeric', 'between:0,999.99'],
+                'collect_commission' => ['sometimes', 'required', 'numeric', 'between:0,999.99'],
+                'login'              => ['sometimes', 'required', 'string', 'max:8', Rule::unique('sellers')->ignore($this->id)],
+                'password'           => ['sometimes', 'nullable', 'max:255'],
+                'last_login_at'      => ['sometimes', 'nullable'],
+                'must_be_sync'       => ['sometimes', 'required'],
+                'sync_at'            => ['nullable'],
+                'created_by'         => ['nullable'],
+                'updated_by'         => ['required', 'exists:users,id'],
+            ];
+        }
     }
 
     protected function prepareForValidation()
