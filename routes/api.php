@@ -31,3 +31,10 @@ Route::group([
 });
 
 
+
+
+Route::apiResource('category', App\Http\Controllers\Api\CategoryController::class);
+
+Route::apiResource('line', App\Http\Controllers\Api\LineController::class);
+
+Route::apiResource('sub-line', App\Http\Controllers\Api\SubLineController::class);
