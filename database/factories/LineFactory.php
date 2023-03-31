@@ -27,12 +27,12 @@ class LineFactory extends Factory
         $must_be_sync = $this->faker->boolean;
 
         return [
-            'category_id' => $category_id,
-            'description' => Str::upper(substr($this->faker->text,0,50)),
+            'category_id'  => $category_id,
+            'description'  => Str::upper(substr($this->faker->text,0,50)),
             'must_be_sync' => $must_be_sync,
-            'sync_at' => $must_be_sync ? null : $this->faker->dateTime(),
-            'created_by' => $user_id,
-            'updated_by' => $user_id,
+            'sync_at'      => $must_be_sync ? null : $this->faker->dateTime(),
+            'created_by'   => $user_id,
+            'updated_by'   => $user_id,
         ];
     }
 }

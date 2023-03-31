@@ -19,12 +19,12 @@ class CustomerTypeController extends Controller
         $filter = new CustomerTypeFilter();
         $filterItems = $filter->transform($request);
 
-        $includeCustomerTypes = $request->query('includeCustomerTypes');
+        $includeCustomers = $request->query('includeCustomers');
 
         $customerTypes = CustomerType::where($filterItems);
 
-        if ($includeCustomerTypes) {
-            $customerTypes->with('customerTypes');
+        if ($includeCustomers) {
+            $customerTypes->with('customers');
         }
         return new CustomerTypeCollection($customerTypes->paginate()->appends($request->query()));
 

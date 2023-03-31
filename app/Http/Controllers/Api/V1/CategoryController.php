@@ -21,13 +21,13 @@ class CategoryController extends Controller
         $filter = new CategoryFilter();
         $filterItems = $filter->transform($request);
 
-        // $includeLines = $request->query('includeLines');
+        $includeLines = $request->query('includeLines');
 
         $categorys = Category::where($filterItems);
 
-        // if ($includeLines) {
-        //     $categorys->with('Lines');
-        // }
+        if ($includeLines) {
+            $categorys->with('lines');
+        }
         return new CategoryCollection($categorys->paginate()->appends($request->query()));
 
         // $categorys = Category::paginate();
@@ -43,11 +43,11 @@ class CategoryController extends Controller
 
     public function show(Request $request, Category $category): CategoryResource
     {
-        // $includeLines = $request->query('includeLines');
+        $includeLines = $request->query('includeLines');
 
-        // if ($includeLines) {
-        //     $category->loadMissing('Lines');
-        // }
+        if ($includeLines) {
+            $category->loadMissing('lines');
+        }
 
         return new CategoryResource($category);
     }

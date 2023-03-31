@@ -24,6 +24,8 @@ Route::group([
     'namespace' => 'App\Http\Controllers\Api\V1',
     // 'middleware' => 'auth:sanctum'
 ], function () {
+    Route::apiResource('sub-line', SubLineController::class);
+    Route::apiResource('line', LineController::class);
     Route::apiResource('category', CategoryController::class);
     Route::apiResource('customer', CustomerController::class);
     Route::apiResource('seller', SellerController::class);
@@ -31,5 +33,3 @@ Route::group([
     Route::apiResource('price-list', PriceListController::class);
 });
 
-Route::apiResource('line', App\Http\Controllers\Api\LineController::class);
-Route::apiResource('sub-line', App\Http\Controllers\Api\SubLineController::class);

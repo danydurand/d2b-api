@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
-class CategoryUpdateRequest extends FormRequest
+class SubLineUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,8 @@ class CategoryUpdateRequest extends FormRequest
 
         if ($method == 'PUT') {
             return [
-                'code'         => ['required', 'string', 'max:6', Rule::unique('categories')->ignore($this->id)],
-                'description'  => ['required', 'string', 'max:100', Rule::unique('categories')->ignore($this->id)],
+                'line_id'      => ['required', 'integer', 'exists:lines,id'],
+                'description'  => ['required', 'string', 'max:100', Rule::unique('sub_lines')->ignore($this->id)],
                 'must_be_sync' => ['required'],
                 'sync_at'      => ['nullable'],
                 'created_by'   => ['nullable'],
@@ -34,21 +34,19 @@ class CategoryUpdateRequest extends FormRequest
             ];
         } else {
             return [
-                'code'         => ['sometimes', 'required', 'string', 'max:6', Rule::unique('categories')->ignore($this->id)],
-                'description'  => ['sometimes', 'required', 'string', 'max:100', Rule::unique('categories')->ignore($this->id)],
+                'line_id'      => ['sometimes', 'required', 'integer', 'exists:lines,id'],
+                'description'  => ['sometimes', 'required', 'string', 'max:100', Rule::unique('sub_lines')->ignore($this->id)],
                 'must_be_sync' => ['sometimes', 'required'],
                 'sync_at'      => ['nullable'],
                 'created_by'   => ['nullable'],
                 'updated_by'   => ['required', 'integer', 'exists:users,id'],
             ];
-
         }
     }
-
     protected function prepareForValidation()
     {
-        if ($this->code) {
-            $this->merge([ 'code' => Str::Upper($this->code), ]);
+        if ($this->lineId) {
+            $this->merge([ 'line_id' => $this->lineId, ]);
         }
         if (strlen($this->description)) {
             $this->merge([ 'description' => Str::upper($this->description), ]);
@@ -63,5 +61,6 @@ class CategoryUpdateRequest extends FormRequest
             $this->merge([ 'updated_by' => $this->updatedBy, ]);
         }
     }
+
 
 }

@@ -5,7 +5,7 @@ namespace App\Http\Resources\V1;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryResource extends JsonResource
+class LineResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,14 +14,12 @@ class CategoryResource extends JsonResource
     {
         return [
             'id'          => $this->id,
-            'code'        => $this->code,
+            'categoryId'  => $this->category_id,
             'description' => $this->description,
             'mustBeSync'  => $this->must_be_sync,
             'syncAt'      => $this->sync_at,
             'createdAt'   => $this->created_at->toDateTimeString(),
             'updatedAt'   => $this->updated_at->toDateTimeString(),
-            'lines'       => LineResource::collection($this->whenLoaded('lines')),
-
         ];
     }
 }
