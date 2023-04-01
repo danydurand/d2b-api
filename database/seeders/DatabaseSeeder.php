@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             SubLineSeeder::class,
             ColourSeeder::class,
             OriginSeeder::class,
+            ArticleTypeSeeder::class,
+            ProviderSeeder::class,
         ]);
 
         // User::factory()->create([

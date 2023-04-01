@@ -24,11 +24,9 @@ class CustomerResource extends JsonResource
             'phones'          => $this->phones,
             'contactName'     => $this->contact_name,
             'mustBeSync'      => $this->must_be_sync,
-            'syncAt'          => $this->sync_at,
+            'syncAt'          => $this->sync_at ? $this->sync_at->toDateTimeString() : null,
             'createdAt'       => $this->created_at->toDateTimeString(),
             'updatedAt'       => $this->updated_at->toDateTimeString(),
-            // 'createdBy' => $this->creator,
-            // 'updatedBy' => $this->updator,
         ];
     }
 }

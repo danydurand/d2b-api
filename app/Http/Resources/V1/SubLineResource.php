@@ -17,7 +17,7 @@ class SubLineResource extends JsonResource
             'lineId'      => $this->line_id,
             'description' => $this->description,
             'mustBeSync'  => $this->must_be_sync,
-            'syncAt'      => $this->sync_at,
+            'syncAt'      => $this->sync_at ? $this->sync_at->toDateTimeString() : null,
             'createdAt'   => $this->created_at->toDateTimeString(),
             'updatedAt'   => $this->updated_at->toDateTimeString(),
         ];

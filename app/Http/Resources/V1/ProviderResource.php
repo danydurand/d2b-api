@@ -5,7 +5,7 @@ namespace App\Http\Resources\V1;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ColourResource extends JsonResource
+class ProviderResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,7 +14,7 @@ class ColourResource extends JsonResource
     {
         return [
             'id'          => $this->id,
-            'description' => $this->description,
+            'name'        => $this->name,
             'mustBeSync'  => $this->must_be_sync,
             'syncAt'      => $this->sync_at ? $this->sync_at->toDateTimeString() : null,
             'createdAt'   => $this->created_at->toDateTimeString(),

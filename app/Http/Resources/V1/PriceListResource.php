@@ -13,14 +13,14 @@ class PriceListResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'mustBeSync' => $this->must_be_sync,
-            'syncAt' => $this->sync_at,
-            'createdAt' => $this->created_at->toDateTimeString(),
-            'updatedAt' => $this->updated_at->toDateTimeString(),
-            'createdBy' => $this->creator,
-            'updatedBy' => $this->updator,
+            'id'            => $this->id,
+            'name'          => $this->name,
+            'mustBeSync'    => $this->must_be_sync,
+            'syncAt'        => $this->sync_at ? $this->sync_at->toDateTimeString() : null,
+            'createdAt'     => $this->created_at->toDateTimeString(),
+            'updatedAt'     => $this->updated_at->toDateTimeString(),
+            'createdBy'     => $this->creator,
+            'updatedBy'     => $this->updator,
             'customerTypes' => CustomerTypeResource::collection($this->whenLoaded('customerTypes')),
 
         ];

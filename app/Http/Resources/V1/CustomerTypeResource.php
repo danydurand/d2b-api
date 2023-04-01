@@ -13,17 +13,17 @@ class CustomerTypeResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'code' => $this->code,
+            'id'          => $this->id,
+            'code'        => $this->code,
             'description' => $this->description,
             'priceListId' => $this->price_list_id,
-            'priceList' => $this->price_list_name,
-            'mustBeSync' => $this->must_be_sync,
-            'syncAt' => $this->sync_at,
-            'createdAt' => $this->created_at->toDateTimeString(),
-            'updatedAt' => $this->updated_at->toDateTimeString(),
-            'createdBy' => $this->creator,
-            'updatedBy' => $this->updator,
+            'priceList'   => $this->price_list_name,
+            'mustBeSync'  => $this->must_be_sync,
+            'syncAt'      => $this->sync_at ? $this->sync_at->toDateTimeString() : null,
+            'createdAt'   => $this->created_at->toDateTimeString(),
+            'updatedAt'   => $this->updated_at->toDateTimeString(),
+            'createdBy'   => $this->creator,
+            'updatedBy'   => $this->updator,
         ];
     }
 }

@@ -1,14 +1,14 @@
 models:
 
-  Colour:
+  ArticleType:
     description: string:100 unique
     must_be_sync: boolean default:false index
     sync_at: datetime nullable
     created_by: foreign:users.id nullable index
     updated_by: foreign:users.id nullable index
 
-  Origin:
-    description: string:100 unique
+  Provider:
+    name: string:100 unique
     must_be_sync: boolean default:false index
     sync_at: datetime nullable
     created_by: foreign:users.id nullable index
@@ -16,11 +16,36 @@ models:
 
 controllers:
 
-  Api\Colour:
+  Api\ArticleType:
     resource: api.index, api.store, api.show, api.update, api.destroy
 
-  Api\Origin:
+  Api\Provider:
     resource: api.index, api.store, api.show, api.update, api.destroy
+
+
+# models:
+
+#   Colour:
+#     description: string:100 unique
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+#   Origin:
+#     description: string:100 unique
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+# controllers:
+
+#   Api\Colour:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
+
+#   Api\Origin:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
 
 
 #   Category:
