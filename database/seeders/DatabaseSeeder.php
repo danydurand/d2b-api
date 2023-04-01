@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
             ProviderSeeder::class,
             SaleUnitSeeder::class,
             BusinessSeeder::class,
+            BrandSeeder::class,
+            SubBrandSeeder::class,
         ]);
 
         // User::factory()->create([

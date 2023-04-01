@@ -1,13 +1,14 @@
 models:
 
-  SaleUnit:
+  Brand:
     description: string:100 unique
     must_be_sync: boolean default:false index
     sync_at: datetime nullable
     created_by: foreign:users.id nullable index
     updated_by: foreign:users.id nullable index
 
-  Business:
+  SubBrand:
+    brand_id: foreign:brands.id index
     description: string:100 unique
     must_be_sync: boolean default:false index
     sync_at: datetime nullable
@@ -16,11 +17,34 @@ models:
 
 controllers:
 
-  Api\SaleUnit:
+  Api\Brand:
     resource: api.index, api.store, api.show, api.update, api.destroy
 
-  Api\Business:
+  Api\SubBrand:
     resource: api.index, api.store, api.show, api.update, api.destroy
+
+
+#   SaleUnit:
+#     description: string:100 unique
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+#   Business:
+#     description: string:100 unique
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+# controllers:
+
+#   Api\SaleUnit:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
+
+#   Api\Business:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
 
 
 #   ArticleType:
