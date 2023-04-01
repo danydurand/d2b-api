@@ -1,14 +1,14 @@
 models:
 
-  ArticleType:
+  SaleUnit:
     description: string:100 unique
     must_be_sync: boolean default:false index
     sync_at: datetime nullable
     created_by: foreign:users.id nullable index
     updated_by: foreign:users.id nullable index
 
-  Provider:
-    name: string:100 unique
+  Business:
+    description: string:100 unique
     must_be_sync: boolean default:false index
     sync_at: datetime nullable
     created_by: foreign:users.id nullable index
@@ -16,11 +16,34 @@ models:
 
 controllers:
 
-  Api\ArticleType:
+  Api\SaleUnit:
     resource: api.index, api.store, api.show, api.update, api.destroy
 
-  Api\Provider:
+  Api\Business:
     resource: api.index, api.store, api.show, api.update, api.destroy
+
+
+#   ArticleType:
+#     description: string:100 unique
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+#   Provider:
+#     name: string:100 unique
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+# controllers:
+
+#   Api\ArticleType:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
+
+#   Api\Provider:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
 
 
 # models:
