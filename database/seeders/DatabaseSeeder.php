@@ -3,9 +3,6 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\CustomerType;
-use App\Models\PriceList;
-use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,6 +21,8 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             LineSeeder::class,
             SubLineSeeder::class,
+            ColourSeeder::class,
+            OriginSeeder::class,
         ]);
 
         // User::factory()->create([

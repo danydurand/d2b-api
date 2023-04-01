@@ -1,23 +1,13 @@
 models:
 
-  Category:
-    code: string:6 unique
+  Colour:
     description: string:100 unique
     must_be_sync: boolean default:false index
     sync_at: datetime nullable
     created_by: foreign:users.id nullable index
     updated_by: foreign:users.id nullable index
 
-  Line:
-    category_id: foreign:categories.id index
-    description: string:100 unique
-    must_be_sync: boolean default:false index
-    sync_at: datetime nullable
-    created_by: foreign:users.id nullable index
-    updated_by: foreign:users.id nullable index
-
-  SubLine:
-    line_id: foreign:lines.id index
+  Origin:
     description: string:100 unique
     must_be_sync: boolean default:false index
     sync_at: datetime nullable
@@ -26,14 +16,47 @@ models:
 
 controllers:
 
-  Api\Category:
+  Api\Colour:
     resource: api.index, api.store, api.show, api.update, api.destroy
 
-  Api\Line:
+  Api\Origin:
     resource: api.index, api.store, api.show, api.update, api.destroy
 
-  Api\SubLine:
-    resource: api.index, api.store, api.show, api.update, api.destroy
+
+#   Category:
+#     code: string:6 unique
+#     description: string:100 unique
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+#   Line:
+#     category_id: foreign:categories.id index
+#     description: string:100 unique
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+#   SubLine:
+#     line_id: foreign:lines.id index
+#     description: string:100 unique
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+# controllers:
+
+#   Api\Category:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
+
+#   Api\Line:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
+
+#   Api\SubLine:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
 
 
 #  Seller:

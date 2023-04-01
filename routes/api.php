@@ -24,6 +24,8 @@ Route::group([
     'namespace' => 'App\Http\Controllers\Api\V1',
     // 'middleware' => 'auth:sanctum'
 ], function () {
+    Route::apiResource('origin', OriginController::class);
+    Route::apiResource('colour', ColourController::class);
     Route::apiResource('sub-line', SubLineController::class);
     Route::apiResource('line', LineController::class);
     Route::apiResource('category', CategoryController::class);
