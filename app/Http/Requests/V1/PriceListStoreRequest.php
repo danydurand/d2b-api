@@ -31,26 +31,14 @@ class PriceListStoreRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        info("Arriving: ".print_r($this->all(), true));
-
         if ($this->name) {
-            info("Name: {$this->name}");
-            $this->merge([
-                'name' => Str::Upper($this->name),
-            ]);
-            info("Name: {$this->name}");
+            $this->merge([ 'name' => Str::Upper($this->name), ]);
         }
         if (strlen($this->mustBeSync)) {
-            info("Must be sync: {$this->mustBeSync}");
-            $this->merge([
-                'must_be_sync' => $this->mustBeSync,
-            ]);
+            $this->merge([ 'must_be_sync' => $this->mustBeSync, ]);
         }
         if ($this->syncAt) {
-            info("Sync at: {$this->syncAt}");
-            $this->merge([
-                'sync_at' => $this->syncAt,
-            ]);
+            $this->merge([ 'sync_at' => $this->syncAt, ]);
         }
         if ($this->createdBy) {
             $this->merge([
@@ -58,12 +46,6 @@ class PriceListStoreRequest extends FormRequest
                 'updated_by' => $this->createdBy,
             ]);
         }
-        // if ($this->updatedBy) {
-        //     $this->merge([
-        //         'updated_by' => $this->updatedBy,
-        //     ]);
-        // }
-        info("Leaving: ".print_r($this->all(), true));
     }
 
 }

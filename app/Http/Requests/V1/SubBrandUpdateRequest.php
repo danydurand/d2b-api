@@ -34,8 +34,9 @@ class SubBrandUpdateRequest extends FormRequest
             ];
         } else {
             return [
-                'brand_id'      => ['sometimes', 'required', 'integer', 'exists:brands,id'],
-                'description'  => ['sometimes', 'required', 'string', 'max:100', Rule::unique('sub_brands')->ignore($this->id)],
+                'brand_id'     => ['sometimes', 'required', 'integer', 'exists:brands,id'],
+                // 'description'  => ['sometimes', 'required', 'string', 'max:100', Rule::unique('sub_brands')->ignore($this->id)],
+                'description'  => ['sometimes', 'required', 'string', 'max:100'],
                 'must_be_sync' => ['sometimes', 'required'],
                 'sync_at'      => ['nullable'],
                 'created_by'   => ['nullable'],

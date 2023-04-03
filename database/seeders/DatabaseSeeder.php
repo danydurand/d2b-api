@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             BusinessSeeder::class,
             BrandSeeder::class,
             SubBrandSeeder::class,
+            ArticleSeeder::class,
         ]);
 
         // User::factory()->create([

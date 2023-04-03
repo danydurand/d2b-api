@@ -1,15 +1,57 @@
 models:
 
-  Brand:
+  Article:
+    code: string:30 unique
     description: string:100 unique
-    must_be_sync: boolean default:false index
-    sync_at: datetime nullable
-    created_by: foreign:users.id nullable index
-    updated_by: foreign:users.id nullable index
-
-  SubBrand:
+    business_id: foreign:businesses.id index
     brand_id: foreign:brands.id index
-    description: string:100 unique
+    sub_brand_id: foreign:sub_brands.id index
+    category_id: foreign:categories.id index
+    line_id: foreign:lines.id index
+    sub_line_id: foreign:sub_lines.id index
+    colour_id: foreign:colours.id index
+    origin_id: foreign:origins.id index
+    article_type_id: foreign:article_types.id index
+    provider_id: foreign:providers.id index
+    sale_unit_id: foreign:sale_units.id index
+    ssale_unit_id: foreign:ssale_units.id index
+    reference: string:20
+    model: string:20
+    comments: text nullable
+    compose: boolean nullable default:false
+    picture: string:100 nullable
+    field1: string:60 nullable
+    field2: string:60 nullable
+    field3: string:60 nullable
+    field4: string:60 nullable
+    field5: string:60 nullable
+    x_11: decimal:18,5 nullable
+    x_12: decimal:18,5 nullable
+    weight: decimal:18,5 nullable
+    feet: decimal:18,5 nullable
+    sale_price1: decimal:18,5 nullable
+    sale_price2: decimal:18,5 nullable
+    sale_price3: decimal:18,5 nullable
+    sale_price4: decimal:18,5 nullable
+    sale_price5: decimal:18,5 nullable
+    last_date_price1: datetime nullable
+    last_date_price2: datetime nullable
+    last_date_price3: datetime nullable
+    last_date_price4: datetime nullable
+    last_date_price5: datetime nullable
+    real_stock: decimal:18,5 nullable
+    commited_stock: decimal:18,5 nullable
+    comming_stock: decimal:18,5 nullable
+    dispatch_stock: decimal:18,5 nullable
+    sreal_stock: decimal:18,5 nullable
+    scommited_stock: decimal:18,5 nullable
+    scomming_stock: decimal:18,5 nullable
+    sdispatch_stock: decimal:18,5 nullable
+    margin1: decimal:18,5 nullable
+    margin2: decimal:18,5 nullable
+    margin3: decimal:18,5 nullable
+    margin4: decimal:18,5 nullable
+    margin5: decimal:18,5 nullable
     must_be_sync: boolean default:false index
     sync_at: datetime nullable
     created_by: foreign:users.id nullable index
@@ -17,11 +59,33 @@ models:
 
 controllers:
 
-  Api\Brand:
+  Api\Article:
     resource: api.index, api.store, api.show, api.update, api.destroy
 
-  Api\SubBrand:
-    resource: api.index, api.store, api.show, api.update, api.destroy
+
+
+#   Brand:
+#     description: string:100 unique
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+#   SubBrand:
+#     brand_id: foreign:brands.id index
+#     description: string:100 unique
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+# controllers:
+
+#   Api\Brand:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
+
+#   Api\SubBrand:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
 
 
 #   SaleUnit:
