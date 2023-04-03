@@ -1,6 +1,6 @@
 models:
 
-  Currency:
+  Transport:
     code: string:6 unique
     name: string:100 unique
     must_be_sync: boolean default:false index
@@ -10,8 +10,22 @@ models:
 
 controllers:
 
-  Api\Currency:
+  Api\Transport:
     resource: api.index, api.store, api.show, api.update, api.destroy
+
+
+#   Currency:
+#     code: string:6 unique
+#     name: string:100 unique
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+# controllers:
+
+#   Api\Currency:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
 
 
 #   PaymentCondition:

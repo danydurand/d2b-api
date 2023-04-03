@@ -4,17 +4,17 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Origin;
+use App\Models\Transport;
 use App\Models\User;
 
-class OriginFactory extends Factory
+class TransportFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Origin::class;
+    protected $model = Transport::class;
 
     /**
      * Define the model's default state.
@@ -25,7 +25,8 @@ class OriginFactory extends Factory
         $must_be_sync = $this->faker->boolean;
 
         return [
-            'description'  => Str::upper(substr($this->faker->text,0,20)),
+            'code'         => $this->faker->regexify('[A-Z0-9]{6}'),
+            'name'         => Str::upper($this->faker->company()),
             'must_be_sync' => $must_be_sync,
             'sync_at'      => $must_be_sync ? null : $this->faker->dateTime(),
             'created_by'   => $user_id,
