@@ -24,6 +24,7 @@ Route::group([
     'namespace' => 'App\Http\Controllers\Api\V1',
     // 'middleware' => 'auth:sanctum'
 ], function () {
+    Route::apiResource('payment-condition', PaymentConditionController::class);
     Route::apiResource('article', ArticleController::class);
     Route::apiResource('sub-brand', SubBrandController::class);
     Route::apiResource('brand', BrandController::class);
@@ -41,6 +42,8 @@ Route::group([
     Route::apiResource('customer-type', CustomerTypeController::class);
     Route::apiResource('price-list', PriceListController::class);
 });
+
+
 
 
 

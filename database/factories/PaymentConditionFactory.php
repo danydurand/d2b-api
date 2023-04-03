@@ -4,17 +4,17 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Category;
+use App\Models\PaymentCondition;
 use App\Models\User;
 
-class CategoryFactory extends Factory
+class PaymentConditionFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Category::class;
+    protected $model = PaymentCondition::class;
 
     /**
      * Define the model's default state.
@@ -32,5 +32,5 @@ class CategoryFactory extends Factory
             'created_by'   => $user_id,
             'updated_by'   => $user_id,
         ];
-    }
+     }
 }

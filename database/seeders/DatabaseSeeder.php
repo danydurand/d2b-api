@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             BrandSeeder::class,
             SubBrandSeeder::class,
             ArticleSeeder::class,
+            PaymentConditionSeeder::class,
         ]);
 
         // User::factory()->create([
