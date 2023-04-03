@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             SubBrandSeeder::class,
             ArticleSeeder::class,
             PaymentConditionSeeder::class,
+            CurrencySeeder::class,
         ]);
 
         // User::factory()->create([
