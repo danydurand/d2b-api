@@ -1,24 +1,7 @@
 models:
 
-  Order:
-    number: string:6 unique
-    customer_id: foreign:customers.id index
-    seller_id: foreign:sellers.id index
-    transport_id: foreign:transports.id index
-    status: char:1
-    description: string:60
-    order_date: datetime
-    payment_condition_id: foreign:payment_conditions.id index
-    currency_id: foreign:currencies.id index
-    due_date: datetime nullable
-    comments: string:250 nullable
-    rate: decimal:18,5 nullable
-    balance: decimal:18,5 nullable
-    gross_amount: decimal:18,5 nullable
-    net_amount: decimal:18,5 nullable
-    global_discount: decimal:18,5 nullable
-    total_surcharge: decimal:18,5 nullable
-    total_freight: decimal:18,5 nullable
+  Branch:
+    description: string:100 unique
     must_be_sync: boolean default:false index
     sync_at: datetime nullable
     created_by: foreign:users.id nullable index
@@ -26,8 +9,38 @@ models:
 
 controllers:
 
-  Api\Order:
+  Api\Branch:
     resource: api.index, api.store, api.show, api.update, api.destroy
+
+
+#   Order:
+#     number: string:6 unique
+#     customer_id: foreign:customers.id index
+#     seller_id: foreign:sellers.id index
+#     transport_id: foreign:transports.id index
+#     status: char:1
+#     description: string:60
+#     order_date: datetime
+#     payment_condition_id: foreign:payment_conditions.id index
+#     currency_id: foreign:currencies.id index
+#     due_date: datetime nullable
+#     comments: string:250 nullable
+#     rate: decimal:18,5 nullable
+#     balance: decimal:18,5 nullable
+#     gross_amount: decimal:18,5 nullable
+#     net_amount: decimal:18,5 nullable
+#     global_discount: decimal:18,5 nullable
+#     total_surcharge: decimal:18,5 nullable
+#     total_freight: decimal:18,5 nullable
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+# controllers:
+
+#   Api\Order:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
 
 
 #   Transport:

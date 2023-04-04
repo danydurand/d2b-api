@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             CurrencySeeder::class,
             TransportSeeder::class,
             OrderSeeder::class,
+            BranchSeeder::class,
         ]);
 
         // User::factory()->create([
