@@ -22,47 +22,47 @@ class CustomerController extends Controller
 
         // $includeCustomerTypes = $request->query('includeCustomers');
 
-        $Customers = Customer::where($filterItems);
+        $customers = Customer::where($filterItems);
 
         // if ($includeCustomerTypes) {
-        //     $Customers->with('customers');
+        //     $customers->with('customers');
         // }
-        return new CustomerCollection($Customers->paginate()->appends($request->query()));
+        return new CustomerCollection($customers->paginate()->appends($request->query()));
 
-        // $Customers = Customer::paginate();
-        // return new CustomerCollection($Customers);
+        // $customers = Customer::paginate();
+        // return new CustomerCollection($customers);
     }
 
     public function store(CustomerStoreRequest $request): CustomerResource
     {
-        $Customer = Customer::create($request->validated());
+        $customer = Customer::create($request->validated());
 
-        return new CustomerResource($Customer);
+        return new CustomerResource($customer);
     }
 
-    public function show(Request $request, Customer $Customer): CustomerResource
+    public function show(Request $request, Customer $customer): CustomerResource
     {
         // $includeCustomerTypes = $request->query('includeCustomers');
 
         // if ($includeCustomerTypes) {
-        //     $Customer->loadMissing('customers');
+        //     $customer->loadMissing('customers');
         // }
 
-        return new CustomerResource($Customer);
+        return new CustomerResource($customer);
     }
 
-    public function update(CustomerUpdateRequest $request, Customer $Customer): CustomerResource
+    public function update(CustomerUpdateRequest $request, Customer $customer): CustomerResource
     {
-        $Customer->update($request->validated());
+        $customer->update($request->validated());
 
-        return new CustomerResource($Customer);
+        return new CustomerResource($customer);
     }
 
-    public function destroy(Request $request, Customer $Customer)
+    public function destroy(Request $request, Customer $customer)
     {
-        // $intCustQnty = Customer::where('Customer_id', $Customer->id)->get()->count();
+        // $intCustQnty = Customer::where('Customer_id', $customer->id)->get()->count();
         // if ($intCustQnty == 0) {
-            $Customer->delete();
+            $customer->delete();
             return response()->noContent();
         // } else {
         //     return response()->json(['errors' => 'There are ('. $intCustQnty. ') customers assigned to this Customer.'], 400);

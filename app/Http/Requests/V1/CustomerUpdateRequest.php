@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -22,10 +23,12 @@ class CustomerUpdateRequest extends FormRequest
     public function rules(): array
     {
         $method = $this->method();
+        $id     = Route::current()->parameter('customer')->id;
+
 
         if ($method == 'PUT') {
             return [
-                'code'             => ['required', 'string', 'max:6', Rule::unique('customers')->ignore($this->id) ],
+                'code'             => ['required', 'string', 'max:6', Rule::unique('customers')->ignore($id) ],
                 'fiscal_number'    => ['required', 'string', 'max:30'],
                 'business_name'    => ['required', 'string', 'max:100'],
                 'customer_type_id' => ['required', 'integer', 'exists:customer_types,id'],
@@ -41,7 +44,7 @@ class CustomerUpdateRequest extends FormRequest
             ];
         } else {
             return [
-                'code'             => ['sometimes', 'required', 'string', 'max:6', Rule::unique('customers')->ignore($this->id) ],
+                'code'             => ['sometimes', 'required', 'string', 'max:6', Rule::unique('customers')->ignore($id) ],
                 'fiscal_number'    => ['sometimes', 'required', 'string', 'max:30'],
                 'business_name'    => ['sometimes', 'required', 'string', 'max:100'],
                 'customer_type_id' => ['sometimes', 'required', 'integer', 'exists:customer_types,id'],

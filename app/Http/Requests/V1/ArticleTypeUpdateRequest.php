@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -22,10 +23,11 @@ class ArticleTypeUpdateRequest extends FormRequest
     public function rules(): array
     {
         $method = $this->method();
+        $id     = Route::current()->parameter('articleType')->id;
 
         if ($method == 'PUT') {
             return [
-                'description'  => ['required', 'string', 'max:100', Rule::unique('article_types')->ignore($this->id)],
+                'description'  => ['required', 'string', 'max:100', Rule::unique('article_types')->ignore($id)],
                 'must_be_sync' => ['required'],
                 'sync_at'      => ['nullable'],
                 'created_by'   => ['nullable'],
@@ -33,7 +35,7 @@ class ArticleTypeUpdateRequest extends FormRequest
             ];
         } else {
             return [
-                'description'  => ['sometimes', 'required', 'string', 'max:100', Rule::unique('article_types')->ignore($this->id)],
+                'description'  => ['sometimes', 'required', 'string', 'max:100', Rule::unique('article_types')->ignore($id)],
                 'must_be_sync' => ['sometimes', 'required'],
                 'sync_at'      => ['nullable'],
                 'created_by'   => ['nullable'],

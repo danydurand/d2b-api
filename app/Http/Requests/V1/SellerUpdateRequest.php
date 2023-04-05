@@ -4,6 +4,7 @@ namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -23,13 +24,14 @@ class SellerUpdateRequest extends FormRequest
     public function rules(): array
     {
         $method = $this->method();
+        $id     = Route::current()->parameter('seller')->id;
 
         if ($method == 'PUT') {
             return [
-                'name'               => ['required', 'string', 'max:100', Rule::unique('sellers')->ignore($this->id)],
+                'name'               => ['required', 'string', 'max:100', Rule::unique('sellers')->ignore($id)],
                 'sales_commission'   => ['required', 'numeric', 'between:0,999.99'],
                 'collect_commission' => ['required', 'numeric', 'between:0,999.99'],
-                'login'              => ['required', 'string', 'max:8', Rule::unique('sellers')->ignore($this->id)],
+                'login'              => ['required', 'string', 'max:8', Rule::unique('sellers')->ignore($id)],
                 'password'           => ['nullable', 'max:255'],
                 'last_login_at'      => ['nullable'],
                 'must_be_sync'       => ['required'],
@@ -39,10 +41,10 @@ class SellerUpdateRequest extends FormRequest
             ];
         } else {
             return [
-                'name'               => ['sometimes', 'required', 'string', 'max:100', Rule::unique('sellers')->ignore($this->id)],
+                'name'               => ['sometimes', 'required', 'string', 'max:100', Rule::unique('sellers')->ignore($id)],
                 'sales_commission'   => ['sometimes', 'required', 'numeric', 'between:0,999.99'],
                 'collect_commission' => ['sometimes', 'required', 'numeric', 'between:0,999.99'],
-                'login'              => ['sometimes', 'required', 'string', 'max:8', Rule::unique('sellers')->ignore($this->id)],
+                'login'              => ['sometimes', 'required', 'string', 'max:8', Rule::unique('sellers')->ignore($id)],
                 'password'           => ['sometimes', 'nullable', 'max:255'],
                 'last_login_at'      => ['sometimes', 'nullable'],
                 'must_be_sync'       => ['sometimes', 'required'],

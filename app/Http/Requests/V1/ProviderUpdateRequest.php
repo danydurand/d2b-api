@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -22,10 +23,12 @@ class ProviderUpdateRequest extends FormRequest
     public function rules(): array
     {
         $method = $this->method();
+        $id     = Route::current()->parameter('provider')->id;
+
 
         if ($method == 'PUT') {
             return [
-                'name'         => ['required', 'string', 'max:100', Rule::unique('providers')->ignore($this->id)],
+                'name'         => ['required', 'string', 'max:100', Rule::unique('providers')->ignore($id)],
                 'must_be_sync' => ['required'],
                 'sync_at'      => ['nullable'],
                 'created_by'   => ['nullable'],
@@ -33,7 +36,7 @@ class ProviderUpdateRequest extends FormRequest
             ];
         } else {
             return [
-                'name'         => ['sometimes', 'required', 'string', 'max:100', Rule::unique('providers')->ignore($this->id)],
+                'name'         => ['sometimes', 'required', 'string', 'max:100', Rule::unique('providers')->ignore($id)],
                 'must_be_sync' => ['sometimes', 'required'],
                 'sync_at'      => ['nullable'],
                 'created_by'   => ['nullable'],

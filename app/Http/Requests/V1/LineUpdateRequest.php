@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -22,11 +23,13 @@ class LineUpdateRequest extends FormRequest
     public function rules(): array
     {
         $method = $this->method();
+        $id     = Route::current()->parameter('line')->id;
+
 
         if ($method == 'PUT') {
             return [
                 'category_id'  => ['required', 'integer', 'exists:categories,id'],
-                'description'  => ['required', 'string', 'max:100', Rule::unique('lines')->ignore($this->id)],
+                'description'  => ['required', 'string', 'max:100', Rule::unique('lines')->ignore($id)],
                 'must_be_sync' => ['required'],
                 'sync_at'      => ['nullable'],
                 'created_by'   => ['nullable'],
@@ -35,7 +38,7 @@ class LineUpdateRequest extends FormRequest
         } else {
             return [
                 'category_id'  => ['sometimes', 'required', 'integer', 'exists:categories,id'],
-                'description'  => ['sometimes', 'required', 'string', 'max:100', Rule::unique('lines')->ignore($this->id)],
+                'description'  => ['sometimes', 'required', 'string', 'max:100', Rule::unique('lines')->ignore($id)],
                 'must_be_sync' => ['sometimes', 'required'],
                 'sync_at'      => ['nullable'],
                 'created_by'   => ['nullable'],

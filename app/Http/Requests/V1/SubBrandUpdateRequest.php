@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -22,11 +23,12 @@ class SubBrandUpdateRequest extends FormRequest
     public function rules(): array
     {
         $method = $this->method();
+        $id     = Route::current()->parameter('subBrand')->id;
 
         if ($method == 'PUT') {
             return [
                 'brand_id'     => ['required', 'integer', 'exists:brands,id'],
-                'description'  => ['required', 'string', 'max:100', Rule::unique('sub_brands')->ignore($this->id)],
+                'description'  => ['required', 'string', 'max:100', Rule::unique('sub_brands')->ignore($id)],
                 'must_be_sync' => ['required'],
                 'sync_at'      => ['nullable'],
                 'created_by'   => ['nullable'],
@@ -35,8 +37,7 @@ class SubBrandUpdateRequest extends FormRequest
         } else {
             return [
                 'brand_id'     => ['sometimes', 'required', 'integer', 'exists:brands,id'],
-                // 'description'  => ['sometimes', 'required', 'string', 'max:100', Rule::unique('sub_brands')->ignore($this->id)],
-                'description'  => ['sometimes', 'required', 'string', 'max:100'],
+                'description'  => ['sometimes', 'required', 'string', 'max:100', Rule::unique('sub_brands')->ignore($id)],
                 'must_be_sync' => ['sometimes', 'required'],
                 'sync_at'      => ['nullable'],
                 'created_by'   => ['nullable'],

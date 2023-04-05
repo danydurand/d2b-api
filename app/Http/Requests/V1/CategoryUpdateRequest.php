@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -22,11 +23,12 @@ class CategoryUpdateRequest extends FormRequest
     public function rules(): array
     {
         $method = $this->method();
+        $id     = Route::current()->parameter('category')->id;
 
         if ($method == 'PUT') {
             return [
-                'code'         => ['required', 'string', 'max:6', Rule::unique('categories')->ignore($this->id)],
-                'description'  => ['required', 'string', 'max:100', Rule::unique('categories')->ignore($this->id)],
+                'code'         => ['required', 'string', 'max:6', Rule::unique('categories')->ignore($id)],
+                'description'  => ['required', 'string', 'max:100', Rule::unique('categories')->ignore($id)],
                 'must_be_sync' => ['required'],
                 'sync_at'      => ['nullable'],
                 'created_by'   => ['nullable'],
@@ -34,8 +36,8 @@ class CategoryUpdateRequest extends FormRequest
             ];
         } else {
             return [
-                'code'         => ['sometimes', 'required', 'string', 'max:6', Rule::unique('categories')->ignore($this->id)],
-                'description'  => ['sometimes', 'required', 'string', 'max:100', Rule::unique('categories')->ignore($this->id)],
+                'code'         => ['sometimes', 'required', 'string', 'max:6', Rule::unique('categories')->ignore($id)],
+                'description'  => ['sometimes', 'required', 'string', 'max:100', Rule::unique('categories')->ignore($id)],
                 'must_be_sync' => ['sometimes', 'required'],
                 'sync_at'      => ['nullable'],
                 'created_by'   => ['nullable'],

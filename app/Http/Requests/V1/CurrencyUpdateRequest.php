@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -22,11 +23,12 @@ class CurrencyUpdateRequest extends FormRequest
     public function rules(): array
     {
         $method = $this->method();
+        $id     = Route::current()->parameter('currency')->id;
 
         if ($method == 'PUT') {
             return [
-                'code'         => ['required', 'string', 'max:6', Rule::unique('currencies')->ignore($this->id)],
-                'name'         => ['required', 'string', 'max:100', Rule::unique('currencies')->ignore($this->id)],
+                'code'         => ['required', 'string', 'max:6', Rule::unique('currencies')->ignore($id)],
+                'name'         => ['required', 'string', 'max:100', Rule::unique('currencies')->ignore($id)],
                 'must_be_sync' => ['required'],
                 'sync_at'      => ['nullable'],
                 'created_by'   => ['nullable'],
@@ -34,8 +36,8 @@ class CurrencyUpdateRequest extends FormRequest
             ];
         } else {
             return [
-                'code'         => ['sometimes', 'required', 'string', 'max:6', Rule::unique('currencies')->ignore($this->id)],
-                'name'         => ['sometimes', 'required', 'string', 'max:100', Rule::unique('currencies')->ignore($this->id)],
+                'code'         => ['sometimes', 'required', 'string', 'max:6', Rule::unique('currencies')->ignore($id)],
+                'name'         => ['sometimes', 'required', 'string', 'max:100', Rule::unique('currencies')->ignore($id)],
                 'must_be_sync' => ['sometimes', 'required'],
                 'sync_at'      => ['nullable'],
                 'created_by'   => ['nullable'],
