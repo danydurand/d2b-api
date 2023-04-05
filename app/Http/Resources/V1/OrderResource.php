@@ -36,6 +36,7 @@ class OrderResource extends JsonResource
             'syncSt'             => $this->sync_at,
             'createdBy'          => $this->created_by,
             'updatedBy'          => $this->updated_by,
+            'orderLines'         => OrderLineResource::collection($this->whenLoaded('orderLines')),
         ];
     }
 }

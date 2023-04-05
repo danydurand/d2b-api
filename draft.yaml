@@ -1,11 +1,14 @@
 models:
 
-  Warehouse:
-    code: string:6 unique
-    description: string:100 unique
-    branch_id: foreign:branches.id index
-    is_restrcited_sales: boolean default:false
-    is_restrcited_purchase: boolean default:false
+  OrderLine:
+    order_id: foreign:orders.id index
+    line_number: integer
+    warehouse_id: foreign:warehouses.id index
+    article_id: foreign:articles.id index
+    qty: decimal:18,5
+    sale_price: decimal:18,5
+    sale_price2: decimal:18,5
+    net_amount: decimal:18,5 nullable
     must_be_sync: boolean default:false index
     sync_at: datetime nullable
     created_by: foreign:users.id nullable index
@@ -13,9 +16,24 @@ models:
 
 controllers:
 
-  Api\Warehouse:
+  Api\OrderLine:
     resource: api.index, api.store, api.show, api.update, api.destroy
 
+#   Warehouse:
+#     code: string:6 unique
+#     description: string:100 unique
+#     branch_id: foreign:branches.id index
+#     is_restrcited_sales: boolean default:false
+#     is_restrcited_purchase: boolean default:false
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+# controllers:
+
+#   Api\Warehouse:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
 
 
 #   Branch:

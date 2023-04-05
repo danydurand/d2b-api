@@ -25,7 +25,7 @@ class SaleUnitFactory extends Factory
         $must_be_sync = $this->faker->boolean;
 
         return [
-            'description'  => Str::upper(substr($this->faker->text,0,8)),
+            'description'  => Str::upper(substr($this->faker->text,0,10)),
             'must_be_sync' => $must_be_sync,
             'sync_at'      => $must_be_sync ? null : $this->faker->dateTime(),
             'created_by'   => $user_id,
