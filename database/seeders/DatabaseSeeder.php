@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
             BranchSeeder::class,
             WarehouseSeeder::class,
             OrderSeeder::class,
+            ConditionPaymentSeeder::class,
         ]);
 
         // User::factory()->create([

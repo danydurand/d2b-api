@@ -23,7 +23,7 @@ class ArticleTypeUpdateRequest extends FormRequest
     public function rules(): array
     {
         $method = $this->method();
-        $id     = Route::current()->parameter('articleType')->id;
+        $id     = Route::current()->parameter('article_type')->id;
 
         if ($method == 'PUT') {
             return [

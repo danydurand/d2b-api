@@ -1,14 +1,13 @@
 models:
 
-  OrderLine:
-    order_id: foreign:orders.id index
-    line_number: integer
-    warehouse_id: foreign:warehouses.id index
-    article_id: foreign:articles.id index
-    qty: decimal:18,5
-    sale_price: decimal:18,5
-    sale_price2: decimal:18,5
-    net_amount: decimal:18,5 nullable
+  ConditionPayment:
+    description: string:100 unique
+    branch_id: foreign:branches.id index
+    credit_days: integer
+    field1: string:60 nullable
+    field2: string:60 nullable
+    field3: string:60 nullable
+    field4: string:60 nullable
     must_be_sync: boolean default:false index
     sync_at: datetime nullable
     created_by: foreign:users.id nullable index
@@ -16,8 +15,28 @@ models:
 
 controllers:
 
-  Api\OrderLine:
+  Api\ConditionPayment:
     resource: api.index, api.store, api.show, api.update, api.destroy
+
+
+#   OrderLine:
+#     order_id: foreign:orders.id index
+#     line_number: integer
+#     warehouse_id: foreign:warehouses.id index
+#     article_id: foreign:articles.id index
+#     qty: decimal:18,5
+#     sale_price: decimal:18,5
+#     sale_price2: decimal:18,5
+#     net_amount: decimal:18,5 nullable
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+# controllers:
+
+#   Api\OrderLine:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
 
 #   Warehouse:
 #     code: string:6 unique

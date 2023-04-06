@@ -24,6 +24,7 @@ Route::group([
     'namespace' => 'App\Http\Controllers\Api\V1',
     // 'middleware' => 'auth:sanctum'
 ], function () {
+    Route::apiResource('condition-payment', ConditionPaymentController::class);
     Route::apiResource('warehouse', WarehouseController::class);
     Route::apiResource('branch', BranchController::class);
     Route::apiResource('order', OrderController::class);
@@ -49,5 +50,5 @@ Route::group([
 });
 
 
-// Route::apiResource('order-line', App\Http\Controllers\Api\OrderLineController::class);
-// Route::apiResource('order-line', App\Http\Controllers\Api\OrderLineController::class);
+
+

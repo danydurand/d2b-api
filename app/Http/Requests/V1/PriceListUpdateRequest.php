@@ -23,7 +23,7 @@ class PriceListUpdateRequest extends FormRequest
     public function rules(): array
     {
         $method = $this->method();
-        $id     = Route::current()->parameter('priceList')->id;
+        $id     = Route::current()->parameter('price_list')->id;
 
 
         if ($method == 'PUT') {

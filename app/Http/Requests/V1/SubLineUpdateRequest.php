@@ -23,7 +23,7 @@ class SubLineUpdateRequest extends FormRequest
     public function rules(): array
     {
         $method = $this->method();
-        $id     = Route::current()->parameter('subLine')->id;
+        $id     = Route::current()->parameter('sub_line')->id;
 
 
         if ($method == 'PUT') {

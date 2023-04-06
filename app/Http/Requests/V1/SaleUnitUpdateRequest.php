@@ -23,7 +23,7 @@ class SaleUnitUpdateRequest extends FormRequest
     public function rules(): array
     {
         $method = $this->method();
-        $id     = Route::current()->parameter('saleUnit')->id;
+        $id     = Route::current()->parameter('sale_unit')->id;
 
 
         if ($method == 'PUT') {

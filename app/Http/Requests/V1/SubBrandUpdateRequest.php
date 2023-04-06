@@ -23,7 +23,7 @@ class SubBrandUpdateRequest extends FormRequest
     public function rules(): array
     {
         $method = $this->method();
-        $id     = Route::current()->parameter('subBrand')->id;
+        $id     = Route::current()->parameter('sub_brand')->id;
 
         if ($method == 'PUT') {
             return [

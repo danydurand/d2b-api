@@ -23,7 +23,7 @@ class WarehouseUpdateRequest extends FormRequest
     public function rules(): array
     {
         $method = $this->method();
-        $id = Route::current()->parameter('warehouse')->id;
+        $id     = Route::current()->parameter('warehouse')->id;
 
         if ($method == 'PUT') {
             return [

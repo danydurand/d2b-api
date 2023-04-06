@@ -23,7 +23,7 @@ class CustomerTypeUpdateRequest extends FormRequest
     public function rules(): array
     {
         $method = $this->method();
-        $id     = Route::current()->parameter('customerType')->id;
+        $id     = Route::current()->parameter('customer_type')->id;
 
         if ($method == 'PUT') {
             return [
