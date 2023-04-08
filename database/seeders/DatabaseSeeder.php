@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
             WarehouseSeeder::class,
             OrderSeeder::class,
             ConditionPaymentSeeder::class,
+            InvoiceSeeder::class,
         ]);
 
         // User::factory()->create([

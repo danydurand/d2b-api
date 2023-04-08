@@ -25,7 +25,6 @@ class CustomerUpdateRequest extends FormRequest
         $method = $this->method();
         $id     = Route::current()->parameter('customer')->id;
 
-
         if ($method == 'PUT') {
             return [
                 'code'             => ['required', 'string', 'max:6', Rule::unique('customers')->ignore($id) ],

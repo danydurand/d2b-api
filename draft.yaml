@@ -1,13 +1,36 @@
 models:
 
-  ConditionPayment:
-    description: string:100 unique
-    branch_id: foreign:branches.id index
-    credit_days: integer
-    field1: string:60 nullable
-    field2: string:60 nullable
-    field3: string:60 nullable
-    field4: string:60 nullable
+  InvoiceLine:
+    invoice_id: foreign:invoices.id index
+    line_number: integer
+    origin_document_type: char:1
+    origin_line_number: integer
+    article_id: foreign:articles.id index
+    warehouse_id: foreign:warehouses.id index
+    sub_total: decimal:18,5
+    qty: decimal:18,5
+    qty_secondary_unit: decimal:18,5
+    pending: decimal:18,5
+    sale_unit: string:6
+    sale_price: decimal:18,5
+    discounts: string:15
+    tax_type: char:1
+    net_line: decimal:18,5
+    average_unit_cost: decimal:18,5
+    last_unit_cost: decimal:18,5
+    average_unit_cost_oc: decimal:18,5
+    last_unit_cost_oc: decimal:18,5
+    pay_back_amount: decimal:18,5 nullable
+    pay_back_total: decimal:18,5 nullable
+    sale_price_oc: decimal:18,5 nullable
+    article_generic_description: string:60 nullable
+    comments: string:100 nullable
+    total_units: decimal:18,5 nullable
+    liqour_tax_amount: decimal:18,5 nullable
+    lot_number: string:20 nullable
+    lot_date: datetime nullable
+    aux01: decimal:18,5 nullable
+    aux02: string:30 nullable
     must_be_sync: boolean default:false index
     sync_at: datetime nullable
     created_by: foreign:users.id nullable index
@@ -15,8 +38,84 @@ models:
 
 controllers:
 
-  Api\ConditionPayment:
+  Api\InvoiceLine:
     resource: api.index, api.store, api.show, api.update, api.destroy
+
+
+#   Invoice:
+#     name: string:60
+#     fiscal_number: string:18
+#     fiscal_number2: string:18
+#     customer_id: foreign:customers.id index
+#     seller_id: foreign:sellers.id index
+#     transport_id: foreign:transports.id index
+#     currency_id: foreign:currencies.id index
+#     branch_id: foreign:branches.id index
+#     condition_payments_id: foreign:condition_paymentss.id index
+#     control_number: integer
+#     status: char:1
+#     exchange_rate: decimal:18,5
+#     description: string:60 nullable
+#     balance: decimal:18,5
+#     bill_date: datetime
+#     due_date: datetime
+#     comments: text nullable
+#     delivery_address: text nullable
+#     gross_amount: decimal:18,5
+#     net_amount: decimal:18,5
+#     global_discount_percentage: string:15 nullable
+#     global_discount_amount: decimal:18,5 nullable
+#     surcharge_percentage: string:15 nullable
+#     surcharge_amount: decimal:18,5 nullable
+#     freight_amount: decimal:18,5 nullable
+#     pay_back_amount: decimal:18,5 nullable
+#     tax_amount: decimal:18,5 nullable
+#     pay_back_tax_amount: decimal:18,5 nullable
+#     liqour_tax_amount: decimal:18,5 nullable
+#     nullified: boolean default:false nullable
+#     printed: boolean default:false nullable
+#     field1: string:60 nullable
+#     field2: string:60 nullable
+#     field3: string:60 nullable
+#     field4: string:60 nullable
+#     field5: string:60 nullable
+#     field6: string:60 nullable
+#     field7: string:60 nullable
+#     field8: string:60 nullable
+#     other1: decimal:18,5 nullable
+#     other2: decimal:18,5 nullable
+#     other3: decimal:18,5 nullable
+#     aux01: decimal:18,5 nullable
+#     aux02: string:30 nullable
+#     generic_customer_phone: string:30 nullable
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+# controllers:
+
+#   Api\Invoice:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
+
+
+#   ConditionPayment:
+#     description: string:100 unique
+#     branch_id: foreign:branches.id index
+#     credit_days: integer
+#     field1: string:60 nullable
+#     field2: string:60 nullable
+#     field3: string:60 nullable
+#     field4: string:60 nullable
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+# controllers:
+
+#   Api\ConditionPayment:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
 
 
 #   OrderLine:
