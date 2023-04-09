@@ -58,6 +58,7 @@ return new class extends Migration
             $table->index('must_be_sync');
             $table->index('created_by');
             $table->index('updated_by');
+            $table->unique(['invoice_id', 'line_number']);
 
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';
