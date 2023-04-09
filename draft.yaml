@@ -1,17 +1,7 @@
 models:
 
-  StockWarehouse:
-    warehouse_id: foreign:warehouses.id index
-    article_id: foreign:articles.id index
-    actual_stock: decimal:18,5
-    actual_sstock: decimal:18,5
-    commited_stock: decimal:18,5
-    commited_sstock: decimal:18,5
-    to_arrive_stock: decimal:18,5
-    to_arrive_sstock: decimal:18,5
-    to_dispatch_stock: decimal:18,5
-    to_dispatch_sstock: decimal:18,5
-    checked: char:1 nullable
+  DocumentType:
+    description: string:100 unique
     must_be_sync: boolean default:false index
     sync_at: datetime nullable
     created_by: foreign:users.id nullable index
@@ -19,8 +9,31 @@ models:
 
 controllers:
 
-  Api\StockWarehouse:
+  Api\DocumentType:
     resource: api.index, api.store, api.show, api.update, api.destroy
+
+
+#   StockWarehouse:
+#     warehouse_id: foreign:warehouses.id index
+#     article_id: foreign:articles.id index
+#     actual_stock: decimal:18,5
+#     actual_sstock: decimal:18,5
+#     commited_stock: decimal:18,5
+#     commited_sstock: decimal:18,5
+#     to_arrive_stock: decimal:18,5
+#     to_arrive_sstock: decimal:18,5
+#     to_dispatch_stock: decimal:18,5
+#     to_dispatch_sstock: decimal:18,5
+#     checked: char:1 nullable
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+# controllers:
+
+#   Api\StockWarehouse:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
 
 
 #   InvoiceLine:
