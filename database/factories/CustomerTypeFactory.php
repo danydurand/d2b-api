@@ -27,13 +27,13 @@ class CustomerTypeFactory extends Factory
         $must_be_sync = $this->faker->boolean;
 
         return [
-            'code' => $this->faker->regexify('[A-Z0-9]{6}'),
-            'description' => Str::upper($this->faker->name),
+            'code'          => $this->faker->regexify('[A-Z0-9]{6}'),
+            'description'   => Str::upper($this->faker->name),
             'price_list_id' => $price_list_id,
-            'must_be_sync' => $must_be_sync,
-            'sync_at' => $must_be_sync ? null : $this->faker->dateTime(),
-            'created_by' => $user_id,
-            'updated_by' => $user_id,
+            'must_be_sync'  => $must_be_sync,
+            'sync_at'       => $must_be_sync ? null : $this->faker->dateTime(),
+            'created_by'    => $user_id,
+            'updated_by'    => $user_id,
         ];
     }
 }

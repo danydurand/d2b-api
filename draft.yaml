@@ -1,7 +1,45 @@
 models:
 
-  DocumentType:
-    description: string:100 unique
+  DocumentCxc:
+    document_type_id: foreign:document_types.id
+    document_number: integer
+    nullified: boolean default:false
+    control_number: integer
+    customer_id: foreign:customers.id
+    seller_id: foreign:sellers.id
+    branch_id: foreign:branchs.id
+    is_tax_payer: boolean default:false
+    document_date: datetime
+    due_date: datetime
+    tax_type: char:1
+    exchange_rate: decimal:18,5
+    currency_id: foreign:currencies.id
+    tax_amount: decimal:18,5
+    gross_amount: decimal:18,5
+    discounts: string:15 nullable
+    discount_amount: decimal:18,5
+    surcharge: string:15 nullable
+    surcharge_amount: decimal:18,5 nullable
+    other_amount: decimal:18,5 nullable
+    net_amount: decimal:18,5 nullable
+    balance: decimal:18,5
+    liqour_tax_amount: decimal:18,5 nullable
+    comments: text nullable
+    field1: string:60 nullable
+    field2: string:60 nullable
+    field3: string:60 nullable
+    field4: string:60 nullable
+    field5: string:60 nullable
+    field6: string:60 nullable
+    field7: string:60 nullable
+    field8: string:60 nullable
+    other1: decimal:18,5 nullable
+    other2: decimal:18,5 nullable
+    other3: decimal:18,5 nullable
+    aux01: decimal:18,5 nullable
+    aux02: string:30 nullable
+    record_date: datetime
+    generic_customer_phone: string:30 nullable
     must_be_sync: boolean default:false index
     sync_at: datetime nullable
     created_by: foreign:users.id nullable index
@@ -9,8 +47,22 @@ models:
 
 controllers:
 
-  Api\DocumentType:
+  Api\DocumentCxc:
     resource: api.index, api.store, api.show, api.update, api.destroy
+
+
+
+#   DocumentType:
+#     description: string:100 unique
+#     must_be_sync: boolean default:false index
+#     sync_at: datetime nullable
+#     created_by: foreign:users.id nullable index
+#     updated_by: foreign:users.id nullable index
+
+# controllers:
+
+#   Api\DocumentType:
+#     resource: api.index, api.store, api.show, api.update, api.destroy
 
 
 #   StockWarehouse:

@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
             InvoiceSeeder::class,
             StockWarehouseSeeder::class,
             DocumentTypeSeeder::class,
+            DocumentCxcSeeder::class,
         ]);
 
         // User::factory()->create([

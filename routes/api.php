@@ -24,6 +24,7 @@ Route::group([
     'namespace' => 'App\Http\Controllers\Api\V1',
     // 'middleware' => 'auth:sanctum'
 ], function () {
+    Route::apiResource('document-cxc', DocumentCxcController::class);
     Route::apiResource('document-type', DocumentTypeController::class);
     Route::apiResource('stock-warehouse', StockWarehouseController::class);
     Route::apiResource('invoice', InvoiceController::class);
