@@ -32,6 +32,7 @@ class DocumentCxcFactory extends Factory
         $seller_id        = Seller::inRandomOrder()->first()->id;
         $branch_id        = Branch::inRandomOrder()->first()->id;
         $currency_id      = Currency::inRandomOrder()->first()->id;
+        $tax_type         = $this->faker->randomElement(['0', '1', '2', '3', '4', '5', '6']);
         $must_be_sync     = $this->faker->boolean;
 
         return [
@@ -45,7 +46,7 @@ class DocumentCxcFactory extends Factory
             'is_tax_payer'      => $this->faker->boolean,
             'document_date'     => $this->faker->dateTimeThisMonth(),
             'due_date'          => $this->faker->dateTimeThisMonth(),
-            'tax_type'          => Str::upper($this->faker->randomLetter),
+            'tax_type'          => $tax_type,
             'exchange_rate'     => $this->faker->randomFloat(5, 0, 99.99999),
             'currency_id'       => $currency_id,
             'tax_amount'        => $this->faker->randomFloat(5, 0, 9999.99999),

@@ -260,7 +260,7 @@ controllers:
 #     customer_id: foreign:customers.id index
 #     seller_id: foreign:sellers.id index
 #     transport_id: foreign:transports.id index
-#     status: char:1
+#     status: char:1qw
 #     description: string:60
 #     order_date: datetime
 #     payment_condition_id: foreign:payment_conditions.id index

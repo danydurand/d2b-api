@@ -30,6 +30,7 @@ class OrderFactory extends Factory
         $customer_id          = Customer::inRandomOrder()->first()->id;
         $seller_id            = Seller::inRandomOrder()->first()->id;
         $transport_id         = Transport::inRandomOrder()->first()->id;
+        $status               = $this->faker->randomElement(['0', '1', '2', 'A']);
         $payment_condition_id = PaymentCondition::inRandomOrder()->first()->id;
         $currency_id          = Currency::inRandomOrder()->first()->id;
         $must_be_sync         = $this->faker->boolean;
@@ -39,12 +40,12 @@ class OrderFactory extends Factory
             'customer_id'          => $customer_id,
             'seller_id'            => $seller_id,
             'transport_id'         => $transport_id,
-            'status'               => Str::upper($this->faker->randomLetter),
+            'status'               => $status,
             'description'          => Str::upper(Str::substr($this->faker->text,0,20)),
-            'order_date'           => $this->faker->dateTime(),
+            'order_date'           => $this->faker->dateTimeThisMonth(),
             'payment_condition_id' => $payment_condition_id,
             'currency_id'          => $currency_id,
-            'due_date'             => $this->faker->dateTime(),
+            'due_date'             => $this->faker->dateTimeThisMonth(),
             'comments'             => $this->faker->regexify('[A-Z0-9]{30}'),
             'rate'                 => $this->faker->randomFloat(5, 0, 99999.99999),
             'balance'              => $this->faker->randomFloat(5, 0, 99999.99999),
@@ -54,7 +55,7 @@ class OrderFactory extends Factory
             'total_surcharge'      => $this->faker->randomFloat(5, 0, 99999.99999),
             'total_freight'        => $this->faker->randomFloat(5, 0, 99999.99999),
             'must_be_sync'         => $must_be_sync,
-            'sync_at'              => $must_be_sync ? null : $this->faker->dateTime(),
+            'sync_at'              => $must_be_sync ? null : $this->faker->dateTimeThisMonth(),
             'created_by'           => $user_id,
             'updated_by'           => $user_id,
         ];

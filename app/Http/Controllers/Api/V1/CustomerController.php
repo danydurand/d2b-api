@@ -11,6 +11,7 @@ use App\Http\Resources\V1\CustomerResource;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 
 class CustomerController extends Controller
 {
@@ -31,6 +32,32 @@ class CustomerController extends Controller
 
         // $customers = Customer::paginate();
         // return new CustomerCollection($customers);
+    }
+
+    public function storeMultiple(Request $request)
+    {
+        $requestData = $request->all();
+
+        $loop = 0;
+        foreach ($requestData['customers'] as $key => $value) {
+            Customer::create([
+                'code'             => $value['code'],
+                'fiscal_number'    => $value['fiscalNumber'],
+                'business_name'    => $value['businessName'],
+                'customer_type_id' => $value['customerTypeId'],
+                'seller_id'        => $value['sellerId'],
+                'fiscal_address'   => $value['fiscalAddress'],
+                'dispatch_address' => $value['dispatchAddress'],
+                'phones'           => $value['phones'],
+                'contact_name'     => $value['contactName'],
+                'sync_at'          => Carbon::now(),
+                'created_by'       => 1,
+                'updated_by'       => 1,
+            ]);
+            $loop++;
+        }
+
+        return response()->json(['message' => $loop.' customer(s) created successfully ']);
     }
 
     public function store(CustomerStoreRequest $request): CustomerResource

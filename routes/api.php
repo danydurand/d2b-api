@@ -1,5 +1,33 @@
 <?php
 
+use App\Http\Controllers\Api\V1\ArticleController;
+use App\Http\Controllers\Api\V1\ArticleTypeController;
+use App\Http\Controllers\Api\V1\BranchController;
+use App\Http\Controllers\Api\V1\BrandController;
+use App\Http\Controllers\Api\V1\BusinessController;
+use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\ColourController;
+use App\Http\Controllers\Api\V1\ConditionPaymentController;
+use App\Http\Controllers\Api\V1\CurrencyController;
+use App\Http\Controllers\Api\V1\CustomerController;
+use App\Http\Controllers\Api\V1\CustomerTypeController;
+use App\Http\Controllers\Api\V1\DocumentCxcController;
+use App\Http\Controllers\Api\V1\DocumentTypeController;
+use App\Http\Controllers\Api\V1\InvoiceController;
+use App\Http\Controllers\Api\V1\InvoiceLineController;
+use App\Http\Controllers\Api\V1\LineController;
+use App\Http\Controllers\Api\V1\OrderController;
+use App\Http\Controllers\Api\V1\OriginController;
+use App\Http\Controllers\Api\V1\PaymentConditionController;
+use App\Http\Controllers\Api\V1\PriceListController;
+use App\Http\Controllers\Api\V1\ProviderController;
+use App\Http\Controllers\Api\V1\SaleUnitController;
+use App\Http\Controllers\Api\V1\SellerController;
+use App\Http\Controllers\Api\V1\StockWarehouseController;
+use App\Http\Controllers\Api\V1\SubBrandController;
+use App\Http\Controllers\Api\V1\SubLineController;
+use App\Http\Controllers\Api\V1\TransportController;
+use App\Http\Controllers\Api\V1\WarehouseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +55,7 @@ Route::group([
     Route::apiResource('document-cxc', DocumentCxcController::class);
     Route::apiResource('document-type', DocumentTypeController::class);
     Route::apiResource('stock-warehouse', StockWarehouseController::class);
+    Route::apiResource('invoice-line', InvoiceLineController::class);
     Route::apiResource('invoice', InvoiceController::class);
     Route::apiResource('condition-payment', ConditionPaymentController::class);
     Route::apiResource('warehouse', WarehouseController::class);
@@ -35,7 +64,10 @@ Route::group([
     Route::apiResource('transport', TransportController::class);
     Route::apiResource('currency', CurrencyController::class);
     Route::apiResource('payment-condition', PaymentConditionController::class);
+
     Route::apiResource('article', ArticleController::class);
+    Route::post('article/multiple', [ArticleController::class,'storeMultiple']);
+
     Route::apiResource('sub-brand', SubBrandController::class);
     Route::apiResource('brand', BrandController::class);
     Route::apiResource('business', BusinessController::class);
@@ -47,8 +79,13 @@ Route::group([
     Route::apiResource('sub-line', SubLineController::class);
     Route::apiResource('line', LineController::class);
     Route::apiResource('category', CategoryController::class);
+
     Route::apiResource('customer', CustomerController::class);
+    Route::post('customer/multiple', [CustomerController::class,'storeMultiple']);
+
     Route::apiResource('seller', SellerController::class);
+    Route::post('seller/multiple', [SellerController::class,'storeMultiple']);
+
     Route::apiResource('customer-type', CustomerTypeController::class);
     Route::apiResource('price-list', PriceListController::class);
 });

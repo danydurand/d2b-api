@@ -21,13 +21,13 @@ class ArticleTypeFactory extends Factory
      */
     public function definition(): array
     {
-        $user_id = User::inRandomOrder()->first()->id;
+        $user_id      = User::inRandomOrder()->first()->id;
         $must_be_sync = $this->faker->boolean;
 
         return [
             'description'  => Str::upper(substr($this->faker->text,0,10)),
             'must_be_sync' => $must_be_sync,
-            'sync_at'      => $must_be_sync ? null : $this->faker->dateTime(),
+            'sync_at'      => $must_be_sync ? null : $this->faker->dateTimeThisMonth(),
             'created_by'   => $user_id,
             'updated_by'   => $user_id,
         ];

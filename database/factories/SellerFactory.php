@@ -25,16 +25,16 @@ class SellerFactory extends Factory
         $must_be_sync = $this->faker->boolean;
 
         return [
-            'name' => Str::upper($this->faker->name),
-            'sales_commission' => $this->faker->randomFloat(2, 0, 999.99),
+            'name'               => Str::upper($this->faker->name),
+            'sales_commission'   => $this->faker->randomFloat(2, 0, 999.99),
             'collect_commission' => $this->faker->randomFloat(2, 0, 999.99),
-            'login' => $this->faker->regexify('[a-z0-9]{8}'),
-            'password' => $this->faker->password,
-            'last_login_at' => $this->faker->dateTime(),
-            'must_be_sync' => $must_be_sync,
-            'sync_at' => $must_be_sync ? null : $this->faker->dateTime(),
-            'created_by' => $user_id,
-            'updated_by' => $user_id,
+            'login'              => $this->faker->regexify('[a-z0-9]{8}'),
+            'password'           => $this->faker->password,
+            'last_login_at'      => $this->faker->dateTimeThisMonth(),
+            'must_be_sync'       => $must_be_sync,
+            'sync_at'            => $must_be_sync ? null : $this->faker->dateTimeThisMonth(),
+            'created_by'         => $user_id,
+            'updated_by'         => $user_id,
         ];
     }
 }

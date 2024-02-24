@@ -12,6 +12,7 @@ use App\Models\Customer;
 use App\Models\Seller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 
 class SellerController extends Controller
 {
@@ -32,6 +33,28 @@ class SellerController extends Controller
 
         // $sellers = Seller::paginate();
         // return new SellerCollection($sellers);
+    }
+
+    public function storeMultiple(Request $request)
+    {
+        $requestData = $request->all();
+
+        $loop = 0;
+        foreach ($requestData['sellers'] as $key => $value) {
+            Customer::create([
+                'name'               => $value['name'],
+                'sales_commission'   => $value['salesCommision'],
+                'collect_commission' => $value['collectCommision'],
+                'login'              => $value['login'],
+                'password'           => \Hash::make('password'),
+                'sync_at'            => Carbon::now(),
+                'created_by'         => 1,
+                'updated_by'         => 1,
+            ]);
+            $loop++;
+        }
+
+        return response()->json(['message' => $loop.' seller(s) created successfully ']);
     }
 
     public function store(SellerStoreRequest $request): SellerResource

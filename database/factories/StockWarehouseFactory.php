@@ -42,7 +42,7 @@ class StockWarehouseFactory extends Factory
             'to_dispatch_sstock' => $this->faker->randomFloat(5, 0, 9999.99999),
             'checked'            => Str::upper($this->faker->randomLetter),
             'must_be_sync'       => $must_be_sync,
-            'sync_at'            => $must_be_sync ? null : $this->faker->dateTime(),
+            'sync_at'            => $must_be_sync ? null : $this->faker->dateTimeThisMonth(),
             'created_by'         => $user_id,
             'updated_by'         => $user_id,
         ];

@@ -27,7 +27,7 @@ class ColourFactory extends Factory
         return [
             'description'  => Str::upper(substr($this->faker->text,0,10)),
             'must_be_sync' => $must_be_sync,
-            'sync_at'      => $must_be_sync ? null : $this->faker->dateTime(),
+            'sync_at'      => $must_be_sync ? null : $this->faker->dateTimeThisMonth(),
             'created_by'   => $user_id,
             'updated_by'   => $user_id,
         ];

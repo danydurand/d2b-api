@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources\V1;
 
-use App\Http\Resources\Api\InvoiceLineCollection;
-use App\Http\Resources\Api\InvoiceLineResource;
+use App\Http\Resources\V1\InvoiceLineCollection;
+use App\Http\Resources\V1\InvoiceLineResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
