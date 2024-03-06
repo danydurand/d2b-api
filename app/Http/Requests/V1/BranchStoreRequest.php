@@ -21,11 +21,11 @@ class BranchStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description'  => ['required', 'string', 'max:100', 'unique:brands,description'],
-            'must_be_sync' => ['required'],
-            'sync_at'      => ['nullable'],
-            'created_by'   => ['required', 'integer', 'exists:users,id'],
-            'updated_by'   => ['nullable'],
+            'description' => ['required', 'string', 'max:100', 'unique:brands,description'],
+            'mustBeSync'  => ['required'],
+            'syncAt'      => ['nullable'],
+            'createdBy'   => ['required', 'integer', 'exists:users,id'],
+            'updatedBy'   => ['nullable'],
         ];
     }
 

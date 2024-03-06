@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\DocumentCxCBulkStoreRequest;
 use App\Http\Requests\V1\DocumentCxcStoreRequest;
 use App\Http\Requests\V1\DocumentCxcUpdateRequest;
 use App\Http\Resources\V1\DocumentCxcCollection;
@@ -11,6 +12,7 @@ use App\Filter\V1\DocumentCxcFilter;
 use App\Models\DocumentCxc;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
 
 class DocumentCxcController extends Controller
 {
@@ -31,6 +33,15 @@ class DocumentCxcController extends Controller
 
         // $documentCxcs = DocumentCxc::paginate();
         // return new DocumentCxcCollection($documentCxcs);
+    }
+
+    public function bulkStore(DocumentCxCBulkStoreRequest $request)
+    {
+        $bulk = collect($request->all())->map(function ($arr, $key) {
+            return Arr::except($arr, ['mustBeSync', 'syncAt', 'createdBy']);
+        });
+
+        DocumentCxc::insert($bulk->toArray());
     }
 
     public function store(DocumentCxcStoreRequest $request): DocumentCxcResource

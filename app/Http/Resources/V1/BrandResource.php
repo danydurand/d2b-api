@@ -17,8 +17,8 @@ class BrandResource extends JsonResource
             'description' => $this->description,
             'mustBeSync'  => $this->must_be_sync,
             'syncAt'      => $this->sync_at ? $this->sync_at->toDateTimeString() : null,
-            'createdAt'   => $this->created_at->toDateTimeString(),
-            'updatedAt'   => $this->updated_at->toDateTimeString(),
+            'createdAt'   => $this->created_at ? $this->created_at->toDateTimeString() : null,
+            'updatedAt'   => $this->updated_at ? $this->updated_at->toDateTimeString() : null,
             'subBrands'   => SubBrandResource::collection($this->whenLoaded('subBrands')),
         ];
     }

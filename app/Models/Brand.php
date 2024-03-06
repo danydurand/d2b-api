@@ -30,12 +30,21 @@ class Brand extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
+        'id'           => 'integer',
         'must_be_sync' => 'boolean',
-        'sync_at' => 'datetime',
-        'created_by' => 'integer',
-        'updated_by' => 'integer',
+        'sync_at'      => 'datetime',
+        'created_by'   => 'integer',
+        'updated_by'   => 'integer',
     ];
+
+    //----------------
+    // Mutators
+    //----------------
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = strtoupper($value);
+    }
+
 
     //----------------
     // Relationships

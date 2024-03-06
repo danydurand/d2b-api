@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\BrandBulkStoreRequest;
 use App\Http\Requests\V1\BrandStoreRequest;
 use App\Http\Requests\V1\BrandUpdateRequest;
 use App\Http\Resources\V1\BrandCollection;
@@ -10,6 +11,7 @@ use App\Http\Resources\V1\BrandResource;
 use App\Filter\V1\BrandFilter;
 use App\Models\Brand;
 use App\Models\SubBrand;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -30,16 +32,33 @@ class BrandController extends Controller
         }
         return new BrandCollection($brands->paginate()->appends($request->query()));
 
-        // $brands = Brand::paginate();
-        // return new BrandCollection($brands);
     }
 
     public function store(BrandStoreRequest $request): BrandResource
     {
-        $brand = Brand::create($request->validated());
+
+        $brand = Brand::create($request->all());
 
         return new BrandResource($brand);
     }
+
+    public function bulkStore(BrandBulkStoreRequest $request)
+    {
+
+        $bulk = collect($request->all())->map(function ($arr, $key) {
+            return Arr::except($arr, [
+                'mustBeSync',
+                'syncAt',
+                'createdBy'
+            ]);
+        });
+
+        info('Bulk Store Brand: '.print_r($bulk->toArray(), true));
+
+        Brand::insert($bulk->toArray());
+    }
+
+
 
     public function show(Request $request, Brand $brand): BrandResource
     {

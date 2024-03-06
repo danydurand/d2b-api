@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 class BrandStoreRequest extends FormRequest
@@ -21,31 +22,26 @@ class BrandStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description'  => ['required', 'string', 'max:100', 'unique:brands,description'],
-            'must_be_sync' => ['required'],
-            'sync_at'      => ['nullable'],
-            'created_by'   => ['required', 'integer', 'exists:users,id'],
-            'updated_by'   => ['nullable'],
+            'description' => ['required', 'string', 'max:100', 'unique:brands,description'],
+            'mustBeSync'  => ['required'],
+            'syncAt'      => ['nullable'],
+            'createdBy'   => ['required', 'integer', 'exists:users,id'],
+            'updatedBy'   => ['nullable'],
         ];
     }
 
     protected function prepareForValidation()
     {
-        if (strlen($this->description)) {
-            $this->merge([ 'description' => Str::upper($this->description), ]);
-        }
-        if (strlen($this->mustBeSync)) {
-            $this->merge([ 'must_be_sync' => $this->mustBeSync, ]);
-        }
-        if ($this->syncAt) {
-            $this->merge([ 'sync_at' => $this->syncAt, ]);
-        }
-        if ($this->createdBy) {
-            $this->merge([
-                'created_by' => $this->createdBy,
-                'updated_by' => $this->createdBy,
-            ]);
-        }
+        $obj  = $this->toArray();
+
+        $obj['description']  = $obj['description'] ? Str::upper($obj['description']) : null;
+        $obj['must_be_sync'] = $obj['mustBeSync'] ?? null;
+        $obj['sync_at']      = $obj['syncAt'] ?? null;
+        $obj['created_by']   = $obj['createdBy'] ?? null;
+        $obj['updated_by']   = $obj['createdBy'] ?? null;
+        $obj['updated_at']   = Carbon::now()->toDateTimeString();
+
+        $this->merge($obj);
     }
 
 }
