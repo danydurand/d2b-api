@@ -57,7 +57,7 @@ Route::group([
     Route::post('article/bulk', [ArticleController::class,'bulkStore']);
 
     Route::apiResource('customer', CustomerController::class);
-    Route::post('customer/multiple', [CustomerController::class,'storeMultiple']);
+    Route::post('customer/bulk', [CustomerController::class,'bulkStore']);
 
     Route::apiResource('seller', SellerController::class);
     Route::post('seller/multiple', [SellerController::class,'storeMultiple']);

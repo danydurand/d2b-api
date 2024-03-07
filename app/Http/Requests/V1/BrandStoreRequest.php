@@ -25,8 +25,6 @@ class BrandStoreRequest extends FormRequest
             'description' => ['required', 'string', 'max:100', 'unique:brands,description'],
             'mustBeSync'  => ['required'],
             'syncAt'      => ['nullable'],
-            'createdBy'   => ['required', 'integer', 'exists:users,id'],
-            'updatedBy'   => ['nullable'],
         ];
     }
 
@@ -35,10 +33,12 @@ class BrandStoreRequest extends FormRequest
         $obj  = $this->toArray();
 
         $obj['description']  = $obj['description'] ? Str::upper($obj['description']) : null;
+
         $obj['must_be_sync'] = $obj['mustBeSync'] ?? null;
         $obj['sync_at']      = $obj['syncAt'] ?? null;
-        $obj['created_by']   = $obj['createdBy'] ?? null;
-        $obj['updated_by']   = $obj['createdBy'] ?? null;
+        $obj['created_by']   = $obj['createdBy'] ?? 1;
+        $obj['updated_by']   = $obj['createdBy'] ?? 1;
+        $obj['created_at']   = Carbon::now()->toDateTimeString();
         $obj['updated_at']   = Carbon::now()->toDateTimeString();
 
         $this->merge($obj);

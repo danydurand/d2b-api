@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 class CustomerStoreRequest extends FormRequest
@@ -22,58 +23,40 @@ class CustomerStoreRequest extends FormRequest
     {
         return [
             'code'             => ['required', 'string', 'max:6', 'unique:customers,code'],
-            'fiscal_number'    => ['required', 'string', 'max:30'],
-            'business_name'    => ['required', 'string', 'max:100'],
-            'customer_type_id' => ['required', 'integer', 'exists:customer_types,id'],
-            'seller_id'        => ['required', 'integer', 'exists:sellers,id'],
-            'fiscal_address'   => ['nullable', 'string', 'max:250'],
-            'dispatch_address' => ['nullable', 'string', 'max:250'],
+            'fiscalNumber'     => ['required', 'string', 'max:30'],
+            'businessName'     => ['required', 'string', 'max:100'],
+            'customerTypeId'   => ['required', 'integer', 'exists:customer_types,id'],
+            'sellerId'         => ['required', 'integer', 'exists:sellers,id'],
+            'fiscalAddress'    => ['nullable', 'string', 'max:250'],
+            'dispatchAaddress' => ['nullable', 'string', 'max:250'],
             'phones'           => ['nullable', 'string', 'max:60'],
-            'contact_name'     => ['nullable', 'string', 'max:60'],
-            'must_be_sync'     => ['required'],
-            'sync_at'          => ['nullable'],
-            'created_by'       => ['required', 'exists:users,id']
+            'contactName'      => ['nullable', 'string', 'max:60'],
+            'syncAt'           => ['nullable'],
         ];
     }
 
     protected function prepareForValidation()
     {
-        if ($this->name) {
-            $this->merge([ 'name' => Str::Upper($this->name), ]);
-        }
-        if (strlen($this->fiscalNumber)) {
-            $this->merge([ 'fiscal_number' => Str::upper($this->fiscalNumber), ]);
-        }
-        if (strlen($this->businessName)) {
-            $this->merge([ 'business_name' => Str::upper($this->businessName), ]);
-        }
-        if (strlen($this->customerTypeId)) {
-            $this->merge([ 'customer_type_id' => $this->customerTypeId, ]);
-        }
-        if (strlen($this->sellerId)) {
-            $this->merge([ 'seller_id' => $this->sellerId, ]);
-        }
-        if (strlen($this->fiscalAddress)) {
-            $this->merge([ 'fiscal_address' => Str::Upper($this->fiscalAddress), ]);
-        }
-        if (strlen($this->dispatchAddress)) {
-            $this->merge([ 'dispatch_address' => Str::Upper($this->dispatchAddress), ]);
-        }
-        if (strlen($this->contactName)) {
-            $this->merge([ 'contact_name' => Str::Upper($this->contactName), ]);
-        }
-        if (strlen($this->mustBeSync)) {
-            $this->merge([ 'must_be_sync' => $this->mustBeSync, ]);
-        }
-        if ($this->syncAt) {
-            $this->merge([ 'sync_at' => $this->syncAt, ]);
-        }
-        if ($this->createdBy) {
-            $this->merge([
-                'created_by' => $this->createdBy,
-                'updated_by' => $this->createdBy,
-            ]);
-        }
+        $obj  = $this->toArray();
+
+        $obj['code']             = $obj['code'] ? Str::upper($obj['code']) : null;
+        $obj['fiscal_number']    = $obj['fiscalNumber'] ? Str::upper($obj['fiscalNumber']) : null;
+        $obj['business_name']    = $obj['businessName'] ? Str::upper($obj['businessName']) : null;
+        $obj['customer_type_id'] = $obj['customerTypeId'] ?? null;
+        $obj['seller_id']        = $obj['sellerId'] ?? null;
+        $obj['fiscal_address']   = $obj['fiscalAddress'] ? Str::upper($obj['fiscalAddress']) : null;
+        $obj['dispatch_address'] = $obj['dispatchAddress'] ? Str::upper($obj['dispatchAddress']) : null;
+        $obj['contact_name']     = $obj['contactName'] ? Str::upper($obj['contactName']) : null;
+
+        $obj['must_be_sync']     = $obj['mustBeSync'] ?? false;
+        $obj['sync_at']          = $obj['syncAt'] ?? null;
+        $obj['created_by']       = $obj['createdBy'] ?? 1;
+        $obj['updated_by']       = $obj['createdBy'] ?? 1;
+        $obj['created_at']       = Carbon::now()->toDateTimeString();
+        $obj['updated_at']       = Carbon::now()->toDateTimeString();
+
+        $this->merge($obj);
+
     }
 
 }
