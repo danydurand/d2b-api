@@ -17,7 +17,7 @@ class Line extends Model
      * @var array
      */
     protected $fillable = [
-        'category_id',
+        'code',
         'description',
         'must_be_sync',
         'sync_at',
@@ -31,18 +31,12 @@ class Line extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
-        'category_id' => 'integer',
+        'id'           => 'integer',
         'must_be_sync' => 'boolean',
-        'sync_at' => 'datetime',
-        'created_by' => 'integer',
-        'updated_by' => 'integer',
+        'sync_at'      => 'datetime',
+        'created_by'   => 'integer',
+        'updated_by'   => 'integer',
     ];
-
-    public function category(): BelongsTo
-    {
-        return $this->belongsTo(Category::class);
-    }
 
     public function subLines(): HasMany
     {

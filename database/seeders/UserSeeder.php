@@ -38,10 +38,6 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
-        // User::factory()
-        //     ->count(2)
-        //     ->hasPriceLists(2)
-        //     ->create();
     }
 
 }

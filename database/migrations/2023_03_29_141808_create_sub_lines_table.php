@@ -16,9 +16,11 @@ return new class extends Migration
         Schema::create('sub_lines', function (Blueprint $table) {
             $table->id();
             $table->foreignId('line_id')->constrained()->on('lines');
+            $table->string('code', 6)->require()->unique();
             $table->string('description', 100)->require();
 
             $table->boolean('must_be_sync')->default(false);
+            $table->integer('batch')->nullable();
             $table->dateTime('sync_at')->nullable();
             $table->foreignId('created_by')->constrained()->on('users');
             $table->foreignId('updated_by')->constrained()->on('users');
@@ -27,6 +29,7 @@ return new class extends Migration
             $table->unique(['line_id', 'description']);
             $table->index('line_id');
             $table->index('must_be_sync');
+            $table->index('batch');
             $table->index('created_by');
             $table->index('updated_by');
 

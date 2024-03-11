@@ -23,9 +23,10 @@ class SellerFactory extends Factory
     {
         $user_id = User::inRandomOrder()->first()->id;
         $must_be_sync = $this->faker->boolean;
+        $name = $this->faker->name;
 
         return [
-            'name'               => Str::upper($this->faker->name),
+            'name'               => Str::upper($name),
             'sales_commission'   => $this->faker->randomFloat(2, 0, 999.99),
             'collect_commission' => $this->faker->randomFloat(2, 0, 999.99),
             'login'              => $this->faker->regexify('[a-z0-9]{8}'),

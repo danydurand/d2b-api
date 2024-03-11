@@ -53,11 +53,22 @@ Route::group([
     // 'middleware' => 'auth:sanctum'
 ], function () {
 
+    Route::apiResource('brand', BrandController::class);
+    Route::post('brand/bulk-store', [BrandController::class,'bulkStore']);
+    Route::get('brand/batch-count/{batch}', [BrandController::class,'batchCount']);
+    Route::post('brand/bulk-update', [BrandController::class,'bulkUpdate']);
+    Route::delete('brand/bulk-delete/{batch}', [BrandController::class,'bulkDestroy']);
+    Route::post('brand/sync', [BrandController::class,'sync']);
+    Route::post('brand/bulk-store-md', [BrandController::class,'bulkStoreMd']);
+
     Route::apiResource('article', ArticleController::class);
     Route::post('article/bulk', [ArticleController::class,'bulkStore']);
 
     Route::apiResource('customer', CustomerController::class);
     Route::post('customer/bulk', [CustomerController::class,'bulkStore']);
+
+    Route::apiResource('order', OrderController::class);
+    Route::post('order/bulk', [OrderController::class,'bulkStore']);
 
     Route::apiResource('seller', SellerController::class);
     Route::post('seller/multiple', [SellerController::class,'storeMultiple']);
@@ -65,7 +76,7 @@ Route::group([
     Route::apiResource('document-cxc', DocumentCxcController::class);
     Route::post('document-cxc/bulk', [DocumentCxcController::class,'bulkStore']);
 
-    Route::apiResource('order', OrderController::class);
+
     Route::apiResource('invoice', InvoiceController::class);
 
     Route::apiResource('document-type', DocumentTypeController::class);
@@ -79,9 +90,6 @@ Route::group([
     Route::apiResource('payment-condition', PaymentConditionController::class);
 
     Route::apiResource('sub-brand', SubBrandController::class);
-
-    Route::apiResource('brand', BrandController::class);
-    Route::post('brand/bulk', [BrandController::class,'bulkStore']);
 
     Route::apiResource('business', BusinessController::class);
     Route::apiResource('sale-unit', SaleUnitController::class);

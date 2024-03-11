@@ -13,13 +13,14 @@ class BrandResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'          => $this->id,
-            'description' => $this->description,
-            'mustBeSync'  => $this->must_be_sync,
-            'syncAt'      => $this->sync_at ? $this->sync_at->toDateTimeString() : null,
-            'createdAt'   => $this->created_at ? $this->created_at->toDateTimeString() : null,
-            'updatedAt'   => $this->updated_at ? $this->updated_at->toDateTimeString() : null,
-            'subBrands'   => SubBrandResource::collection($this->whenLoaded('subBrands')),
+            'id'           => $this->id,
+            'description'  => $this->description,
+            'batch'        => $this->batch,
+            'must_be_sync' => $this->must_be_sync,
+            'sync_at'      => $this->sync_at ? $this->sync_at->toDateTimeString() : null,
+            'created_at'   => $this->created_at ? $this->created_at->toDateTimeString() : null,
+            'updated_at'   => $this->updated_at ? $this->updated_at->toDateTimeString() : null,
+            'sub_brands'   => SubBrandResource::collection($this->whenLoaded('subBrands')),
         ];
     }
 }

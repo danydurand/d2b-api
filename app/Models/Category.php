@@ -20,6 +20,7 @@ class Category extends Model
         'code',
         'description',
         'must_be_sync',
+        'batch',
         'sync_at',
         'created_by',
         'updated_by',
@@ -31,17 +32,13 @@ class Category extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
+        'id'           => 'integer',
         'must_be_sync' => 'boolean',
-        'sync_at' => 'datetime',
-        'created_by' => 'integer',
-        'updated_by' => 'integer',
+        'bacth'        => 'integer',
+        'sync_at'      => 'datetime',
+        'created_by'   => 'integer',
+        'updated_by'   => 'integer',
     ];
-
-    public function lines(): HasMany
-    {
-        return $this->hasMany(Line::class);
-    }
 
     public function createdBy(): BelongsTo
     {

@@ -28,11 +28,15 @@ class BrandUpdateRequest extends FormRequest
 
         if ($method == 'PUT') {
             return [
+                'code'        => ['required', 'string', 'max:6'],
                 'description' => ['required', 'string', 'max:100', Rule::unique('brands')->ignore($id)],
+                'batch'       => ['required', 'integer'],
             ];
         } else {
             return [
+                'code'        => ['sometimes', 'required', 'string', 'max:6'],
                 'description' => ['sometimes', 'required', 'string', 'max:100', Rule::unique('brands')->ignore($id)],
+                'batch'       => ['required', 'integer'],
             ];
 
         }

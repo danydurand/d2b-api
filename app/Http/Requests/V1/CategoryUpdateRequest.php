@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -29,19 +30,13 @@ class CategoryUpdateRequest extends FormRequest
             return [
                 'code'         => ['required', 'string', 'max:6', Rule::unique('categories')->ignore($id)],
                 'description'  => ['required', 'string', 'max:100', Rule::unique('categories')->ignore($id)],
-                'must_be_sync' => ['required'],
-                'sync_at'      => ['nullable'],
-                'created_by'   => ['nullable'],
-                'updated_by'   => ['required', 'integer', 'exists:users,id'],
+                'batch'        => ['required', 'integer'],
             ];
         } else {
             return [
                 'code'         => ['sometimes', 'required', 'string', 'max:6', Rule::unique('categories')->ignore($id)],
                 'description'  => ['sometimes', 'required', 'string', 'max:100', Rule::unique('categories')->ignore($id)],
-                'must_be_sync' => ['sometimes', 'required'],
-                'sync_at'      => ['nullable'],
-                'created_by'   => ['nullable'],
-                'updated_by'   => ['required', 'integer', 'exists:users,id'],
+                'batch'        => ['required', 'integer'],
             ];
 
         }
@@ -49,21 +44,18 @@ class CategoryUpdateRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        if ($this->code) {
-            $this->merge([ 'code' => Str::Upper($this->code), ]);
+        if (strlen($this->code)) {
+            $this->merge([ 'code' => $this->code ]);
         }
         if (strlen($this->description)) {
             $this->merge([ 'description' => Str::upper($this->description), ]);
         }
-        if (strlen($this->mustBeSync)) {
-            $this->merge([ 'must_be_sync' => $this->mustBeSync, ]);
-        }
-        if ($this->syncAt) {
-            $this->merge([ 'sync_at' => $this->syncAt, ]);
-        }
-        if ($this->updatedBy) {
-            $this->merge([ 'updated_by' => $this->updatedBy, ]);
-        }
+        $this->merge([
+            'must_be_sync' => false,
+            'sync_at'      => Carbon::now()->toDateTimeString(),
+            'updated_by'   => 1,
+            'updated_at'   => Carbon::now()->toDateTimeString(),
+        ]);
     }
 
 }

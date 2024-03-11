@@ -22,9 +22,8 @@ class BrandStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => ['required', 'string', 'max:100', 'unique:brands,description'],
-            'mustBeSync'  => ['required'],
-            'syncAt'      => ['nullable'],
+            'description'  => ['required', 'string', 'max:100', 'unique:brands,description'],
+            'batch'        => ['required', 'integer'],
         ];
     }
 
@@ -32,14 +31,17 @@ class BrandStoreRequest extends FormRequest
     {
         $obj  = $this->toArray();
 
-        $obj['description']  = $obj['description'] ? Str::upper($obj['description']) : null;
+        // info('Before: '.print_r($obj, true));
 
-        $obj['must_be_sync'] = $obj['mustBeSync'] ?? null;
-        $obj['sync_at']      = $obj['syncAt'] ?? null;
-        $obj['created_by']   = $obj['createdBy'] ?? 1;
-        $obj['updated_by']   = $obj['createdBy'] ?? 1;
+        $obj['description']  = $obj['description'] ? Str::upper($obj['description']) : null;
+        $obj['must_be_sync'] = false;
+        $obj['sync_at']      = Carbon::now()->toDateTimeString();
+        $obj['created_by']   = 1;
+        $obj['updated_by']   = 1;
         $obj['created_at']   = Carbon::now()->toDateTimeString();
         $obj['updated_at']   = Carbon::now()->toDateTimeString();
+
+        // info('After: '.print_r($obj, true));
 
         $this->merge($obj);
     }

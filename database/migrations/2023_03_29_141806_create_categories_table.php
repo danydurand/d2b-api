@@ -19,11 +19,13 @@ return new class extends Migration
             $table->string('description', 100)->require()->unique();
 
             $table->boolean('must_be_sync')->default(false);
+            $table->integer('batch')->nullable();
             $table->dateTime('sync_at')->nullable();
             $table->foreignId('created_by')->constrained()->on('users');
             $table->foreignId('updated_by')->constrained()->on('users');
             $table->timestamps();
 
+            $table->index('batch');
             $table->index('must_be_sync');
             $table->index('created_by');
             $table->index('updated_by');

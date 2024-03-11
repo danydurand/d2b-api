@@ -15,15 +15,17 @@ return new class extends Migration
 
         Schema::create('lines', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained()->on('categories');
+            $table->string('code', 6)->require()->unique();
             $table->string('description', 100)->require()->unique();
 
             $table->boolean('must_be_sync')->default(false);
+            $table->integer('batch')->nullable();
             $table->dateTime('sync_at')->nullable();
             $table->foreignId('created_by')->constrained()->on('users');
             $table->foreignId('updated_by')->constrained()->on('users');
             $table->timestamps();
 
+            $table->index('batch');
             $table->index('must_be_sync');
             $table->index('created_by');
             $table->index('updated_by');

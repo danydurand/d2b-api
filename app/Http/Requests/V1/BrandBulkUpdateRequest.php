@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
-class BrandBulkStoreRequest extends FormRequest
+class BrandBulkUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,6 +22,7 @@ class BrandBulkStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            '*.id'           => ['required', 'integer'],
             '*.description'  => ['required', 'string', 'max:100', 'unique:brands,description'],
             '*.batch'        => ['required'],
         ];
@@ -34,9 +35,7 @@ class BrandBulkStoreRequest extends FormRequest
             $obj['description']  = $obj['description'] ? Str::upper($obj['description']) : null;
             $obj['must_be_sync'] = false;
             $obj['sync_at']      = Carbon::now()->toDateTimeString();
-            $obj['created_by']   = 1;
             $obj['updated_by']   = 1;
-            $obj['created_at']   = Carbon::now()->toDateTimeString();
             $obj['updated_at']   = Carbon::now()->toDateTimeString();
 
             $data[] = $obj;

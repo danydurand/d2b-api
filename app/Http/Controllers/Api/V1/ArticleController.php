@@ -15,8 +15,64 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Arr;
 
+
+/**
+* @OA\Info(
+*             title="D2B Api Docs",
+*             version="1.0",
+*             description="API Endpoints for Articles"
+* )
+*
+* @OA\Server(url="http://localhost:8000")
+*/
+
 class ArticleController extends Controller
 {
+    /**
+     * List of Articles
+     * @OA\Get (
+     *     path="api/v1/article",
+     *     tags={"Articles"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="array",
+     *                 property="rows",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(
+     *                         property="id",
+     *                         type="number",
+     *                         example="1"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="code",
+     *                         type="string",
+     *                         example="290312"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="description",
+     *                         type="string",
+     *                         example="ALICATE DE PRESION"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="created_at",
+     *                         type="string",
+     *                         example="2023-02-23T00:09:16.000000Z"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="updated_at",
+     *                         type="string",
+     *                         example="2023-02-23T12:33:45.000000Z"
+     *                     )
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
     public function index(Request $request): ArticleCollection
     {
 
@@ -31,7 +87,6 @@ class ArticleController extends Controller
 
     public function store(ArticleStoreRequest $request): ArticleResource
     {
-        info('Article Request: '.print_r($request->all(),true));
 
         $article = Article::create($request->all());
 

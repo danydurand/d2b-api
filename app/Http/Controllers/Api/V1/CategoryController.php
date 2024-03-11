@@ -21,22 +21,15 @@ class CategoryController extends Controller
         $filter = new CategoryFilter();
         $filterItems = $filter->transform($request);
 
-        $includeLines = $request->query('includeLines');
-
         $categorys = Category::where($filterItems);
 
-        if ($includeLines) {
-            $categorys->with('lines');
-        }
         return new CategoryCollection($categorys->paginate()->appends($request->query()));
 
-        // $categorys = Category::paginate();
-        // return new CategoryCollection($categorys);
     }
 
     public function store(CategoryStoreRequest $request): CategoryResource
     {
-        $category = Category::create($request->validated());
+        $category = Category::create($request->all());
 
         return new CategoryResource($category);
     }
@@ -61,12 +54,12 @@ class CategoryController extends Controller
 
     public function destroy(Request $request, Category $category)
     {
-        $intRelaQnty = Line::where('category_id', $category->id)->get()->count();
-        if ($intRelaQnty == 0) {
+        // $intRelaQnty = Line::where('category_id', $category->id)->get()->count();
+        // if ($intRelaQnty == 0) {
             $category->delete();
             return response()->noContent();
-        } else {
-            return response()->json(['errors' => 'There are ('. $intRelaQnty. ') Lines assigned to this Category.'], 400);
-        }
+        // } else {
+        //     return response()->json(['errors' => 'There are ('. $intRelaQnty. ') Lines assigned to this Category.'], 400);
+        // }
     }
 }

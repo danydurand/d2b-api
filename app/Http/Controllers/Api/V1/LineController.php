@@ -21,17 +21,15 @@ class LineController extends Controller
         $filter = new LineFilter();
         $filterItems = $filter->transform($request);
 
-        // $includeSubLines = $request->query('includeSubLines');
+        $includeSubLines = $request->query('includeSubLines');
 
         $lines = Line::where($filterItems);
 
-        // if ($includeSubLines) {
-        //     $lines->with('subLines');
-        // }
+        if ($includeSubLines) {
+            $lines->with('subLines');
+        }
         return new LineCollection($lines->paginate()->appends($request->query()));
 
-        // $lines = Line::paginate();
-        // return new LineCollection($lines);
     }
 
     public function store(LineStoreRequest $request): LineResource

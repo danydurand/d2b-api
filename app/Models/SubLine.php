@@ -19,6 +19,7 @@ class SubLine extends Model
         'line_id',
         'description',
         'must_be_sync',
+        'batch',
         'sync_at',
         'created_by',
         'updated_by',
@@ -30,12 +31,13 @@ class SubLine extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
-        'line_id' => 'integer',
+        'id'           => 'integer',
+        'line_id'      => 'integer',
         'must_be_sync' => 'boolean',
-        'sync_at' => 'datetime',
-        'created_by' => 'integer',
-        'updated_by' => 'integer',
+        'bacth'        => 'boolean',
+        'sync_at'      => 'datetime',
+        'created_by'   => 'integer',
+        'updated_by'   => 'integer',
     ];
 
     public function line(): BelongsTo

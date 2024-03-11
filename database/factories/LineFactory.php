@@ -22,12 +22,11 @@ class LineFactory extends Factory
      */
     public function definition(): array
     {
-        $category_id = Category::inRandomOrder()->first()->id;
         $user_id = User::inRandomOrder()->first()->id;
         $must_be_sync = $this->faker->boolean;
 
         return [
-            'category_id'  => $category_id,
+            'code'         => $this->faker->regexify('[A-Za-z0-9]{6}'),
             'description'  => Str::upper(substr($this->faker->text,0,50)),
             'must_be_sync' => $must_be_sync,
             'sync_at'      => $must_be_sync ? null : $this->faker->dateTimeThisMonth(),

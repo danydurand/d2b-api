@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
-class OrderStoreRequest extends FormRequest
+class OrderBulkStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,24 +22,24 @@ class OrderStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'number'             => ['required', 'string', 'max:6', 'unique:orders,number'],
-            'customerId'         => ['required', 'integer', 'exists:customers,id'],
-            'sellerId'           => ['required', 'integer', 'exists:sellers,id'],
-            'transportId'        => ['required', 'integer', 'exists:transports,id'],
-            'status'             => ['required', 'string', 'max:1'],
-            'description'        => ['required', 'string', 'max:60'],
-            'orderDate'          => ['required'],
-            'paymentConditionId' => ['required', 'integer', 'exists:payment_conditions,id'],
-            'currencyId'         => ['required', 'integer', 'exists:currencies,id'],
-            'dueDate'            => ['nullable'],
-            'comments'           => ['nullable', 'string', 'max:250'],
-            'rate'               => ['nullable', 'numeric', 'between:0.01,999999.99999'],
-            'balance'            => ['nullable', 'numeric', 'between:0.01,999999.99999'],
-            'grossAmount'        => ['nullable', 'numeric', 'between:0.01,999999.99999'],
-            'netAmount'          => ['nullable', 'numeric', 'between:0.01,999999.99999'],
-            'globalDiscount'     => ['nullable', 'numeric', 'between:0.01,999999.99999'],
-            'totalSurcharge'     => ['nullable', 'numeric', 'between:0.01,999999.99999'],
-            'totalFreight'       => ['nullable', 'numeric', 'between:0.01,999999.99999'],
+            '*.number'             => ['required', 'string', 'max:6', 'unique:orders,number'],
+            '*.customerId'         => ['required', 'integer', 'exists:customers,id'],
+            '*.sellerId'           => ['required', 'integer', 'exists:sellers,id'],
+            '*.transportId'        => ['required', 'integer', 'exists:transports,id'],
+            '*.status'             => ['required', 'string', 'max:1'],
+            '*.description'        => ['required', 'string', 'max:60'],
+            '*.orderDate'          => ['required'],
+            '*.paymentConditionId' => ['required', 'integer', 'exists:payment_conditions,id'],
+            '*.currencyId'         => ['required', 'integer', 'exists:currencies,id'],
+            '*.dueDate'            => ['nullable'],
+            '*.comments'           => ['nullable', 'string', 'max:250'],
+            '*.rate'               => ['nullable', 'numeric', 'between:0.01,999999.99999'],
+            '*.balance'            => ['nullable', 'numeric', 'between:0.01,999999.99999'],
+            '*.grossAmount'        => ['nullable', 'numeric', 'between:0.01,999999.99999'],
+            '*.netAmount'          => ['nullable', 'numeric', 'between:0.01,999999.99999'],
+            '*.globalDiscount'     => ['nullable', 'numeric', 'between:0.01,999999.99999'],
+            '*.totalSurcharge'     => ['nullable', 'numeric', 'between:0.01,999999.99999'],
+            '*.totalFreight'       => ['nullable', 'numeric', 'between:0.01,999999.99999'],
         ];
     }
 

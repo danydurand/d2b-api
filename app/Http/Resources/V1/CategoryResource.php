@@ -13,15 +13,14 @@ class CategoryResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'          => $this->id,
-            'code'        => $this->code,
-            'description' => $this->description,
-            'mustBeSync'  => $this->must_be_sync,
-            'syncAt'      => $this->sync_at ? $this->sync_at->toDateTimeString() : null,
-            'createdAt'   => $this->created_at->toDateTimeString(),
-            'updatedAt'   => $this->updated_at->toDateTimeString(),
-            'lines'       => LineResource::collection($this->whenLoaded('lines')),
-
+            'id'           => $this->id,
+            'code'         => $this->code,
+            'description'  => $this->description,
+            'must_be_sync' => $this->must_be_sync,
+            'batch'        => $this->batch,
+            'sync_at'      => $this->sync_at ? $this->sync_at->toDateTimeString() : null,
+            'created_at'   => $this->created_at->toDateTimeString(),
+            'updated_at'   => $this->updated_at->toDateTimeString(),
         ];
     }
 }

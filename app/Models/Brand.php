@@ -19,6 +19,7 @@ class Brand extends Model
     protected $fillable = [
         'description',
         'must_be_sync',
+        'batch',
         'sync_at',
         'created_by',
         'updated_by',
@@ -32,6 +33,7 @@ class Brand extends Model
     protected $casts = [
         'id'           => 'integer',
         'must_be_sync' => 'boolean',
+        'batch'        => 'integer',
         'sync_at'      => 'datetime',
         'created_by'   => 'integer',
         'updated_by'   => 'integer',
